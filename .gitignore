@@ -1,0 +1,5 @@
+*.pyc
+.idea*
+private_settings.py
+*.rdb
+*.bak
