@@ -1,4 +1,6 @@
-int[] chromosome = 
+
+
+int[] chromosome =
 { 
   2,   2,   2,  2,  2,  2,
   2,   11,  11, 2, 2,  2,

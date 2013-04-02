@@ -104,7 +104,7 @@ $(document).ready(function () {
 
                             $('<li />' ,
                                     {   "class":"ui-widget-content folder",
-                                        text:  data.collections[i].name.substr(0,10)
+                                        text:  data.collections[i].name.substr(0,12)
 
 
 
@@ -393,15 +393,16 @@ $(document).ready(function () {
 
             <div class='six columns slideup'>
                 {% if user.is_authenticated %}
-                    <p> <img src="http://graph.facebook.com/{{user.email}}/picture?type=small"/> {{ user.first_name }}. <a href="logout">Log out</a>  <span id="fbn" hidden="true">{{ user.username }}</span> </p>
+                    <p> <img src="http://graph.facebook.com/{{user.email}}/picture?type=small"/> {{ user.first_name }}. <a href="/logout">Log out</a>  </p>
                 {% else %}
                     <p>Welcome, new user. Please <a href="facebook/get_login"> log in </a>with your facebook account. </p>
                 {% endif %}
             </div>
             <div class='six columns  slideup'>
 
-                <h4 class='strapline'> <a href="/"> <strong> EvoSpace</strong> Prototype App  </a></h4>
-            </div>
+
+                <h4 class='strapline'> <a href="/"> <strong> Shapes</strong>   </a></h4>
+                <h5 class='strapline'> Click on the shapes you like, and get more! </h5>   </div>
 
 
         </div>
@@ -413,7 +414,7 @@ $(document).ready(function () {
         <nav>
 
             <div class="three columns sidebar">
-                <h4 id="friends">Friends</h4>
+                <h4 id="friends">Friend's Collections</h4>
                 {% if user.is_authenticated %}
                     {% for f in friends  %}
                         <div class='one column'>
@@ -432,7 +433,7 @@ $(document).ready(function () {
 
             </div>
             <div class="three columns sidebar">
-                <h4 id="collections">Collections</h4>
+                <h4 id="collections">My Collections</h4>
 
 
 
@@ -470,7 +471,9 @@ $(document).ready(function () {
             <div class="cover boxcaption">
                 <a class="paint_name">                </a>
                 <a class="fitness" title="show ratings"> </a>
-                <button class="addto"> Add</button>
+                {% if user.is_authenticated %}
+                    <button class="addto"> Add</button>
+                {% endif %}
             </div>
 
         </div>

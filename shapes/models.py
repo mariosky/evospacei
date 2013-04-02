@@ -50,10 +50,17 @@ class FacebookSession(models.Model):
             params['fields'] = fields
 
         url += '?' + urllib.urlencode(params)
-        response = simplejson.load(urllib.urlopen(url))
-        if 'error' in response:
-            error = response['error']
-            raise FacebookSessionError(error['type'], error['message'])
+
+        response = ''
+        try:
+            response = simplejson.load(urllib.urlopen(url))
+
+            if 'error' in response:
+                error = response['error']
+                raise FacebookSessionError(error['type'], error['message'])
+        except:
+            return None
+
         return response
 
 

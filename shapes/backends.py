@@ -27,7 +27,11 @@ class FacebookBackend:
 
 
         user.set_unusable_password()
-        user.email = profile['username']
+        if 'username' in profile:
+            user.email = profile['username']
+        else:
+            user.email = profile['id']
+
         user.first_name = profile['first_name']
         user.last_name = profile['last_name']
         user.save()

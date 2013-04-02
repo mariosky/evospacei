@@ -1,0 +1,2617 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO django;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO django;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO django;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO django;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO django;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO django;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 33, true);
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(75) NOT NULL,
+    password character varying(128) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    is_superuser boolean NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO django;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO django;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO django;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO django;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 82, true);
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO django;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO django;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO django;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO django;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 11, true);
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO django;
+
+--
+-- Name: django_site; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE django_site (
+    id integer NOT NULL,
+    domain character varying(100) NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.django_site OWNER TO django;
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE django_site_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_site_id_seq OWNER TO django;
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE django_site_id_seq OWNED BY django_site.id;
+
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('django_site_id_seq', 1, true);
+
+
+--
+-- Name: shapes_collection; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE shapes_collection (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    description character varying(50) NOT NULL,
+    creation_date timestamp with time zone NOT NULL,
+    visibility character varying(45) NOT NULL
+);
+
+
+ALTER TABLE public.shapes_collection OWNER TO django;
+
+--
+-- Name: shapes_collection_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE shapes_collection_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.shapes_collection_id_seq OWNER TO django;
+
+--
+-- Name: shapes_collection_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE shapes_collection_id_seq OWNED BY shapes_collection.id;
+
+
+--
+-- Name: shapes_collection_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('shapes_collection_id_seq', 133, true);
+
+
+--
+-- Name: shapes_collection_individual; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE shapes_collection_individual (
+    id integer NOT NULL,
+    collection_id integer NOT NULL,
+    individual_id character varying(60) NOT NULL,
+    added_from_id integer,
+    from_user_id integer,
+    date_added timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.shapes_collection_individual OWNER TO django;
+
+--
+-- Name: shapes_collection_individual_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE shapes_collection_individual_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.shapes_collection_individual_id_seq OWNER TO django;
+
+--
+-- Name: shapes_collection_individual_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE shapes_collection_individual_id_seq OWNED BY shapes_collection_individual.id;
+
+
+--
+-- Name: shapes_collection_individual_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('shapes_collection_individual_id_seq', 846, true);
+
+
+--
+-- Name: shapes_facebooksession; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE shapes_facebooksession (
+    id integer NOT NULL,
+    access_token character varying(200) NOT NULL,
+    expires integer,
+    user_id integer,
+    uid bigint
+);
+
+
+ALTER TABLE public.shapes_facebooksession OWNER TO django;
+
+--
+-- Name: shapes_facebooksession_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE shapes_facebooksession_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.shapes_facebooksession_id_seq OWNER TO django;
+
+--
+-- Name: shapes_facebooksession_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE shapes_facebooksession_id_seq OWNED BY shapes_facebooksession.id;
+
+
+--
+-- Name: shapes_facebooksession_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('shapes_facebooksession_id_seq', 95, true);
+
+
+--
+-- Name: shapes_profile; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE shapes_profile (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    oauth_token character varying(200) NOT NULL,
+    oauth_secret character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.shapes_profile OWNER TO django;
+
+--
+-- Name: shapes_profile_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE shapes_profile_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.shapes_profile_id_seq OWNER TO django;
+
+--
+-- Name: shapes_profile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE shapes_profile_id_seq OWNED BY shapes_profile.id;
+
+
+--
+-- Name: shapes_profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('shapes_profile_id_seq', 2, true);
+
+
+--
+-- Name: shapes_user_collection; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE shapes_user_collection (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    collection_id integer NOT NULL,
+    role character varying(45) NOT NULL,
+    status character varying(45) NOT NULL
+);
+
+
+ALTER TABLE public.shapes_user_collection OWNER TO django;
+
+--
+-- Name: shapes_user_collection_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE shapes_user_collection_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.shapes_user_collection_id_seq OWNER TO django;
+
+--
+-- Name: shapes_user_collection_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE shapes_user_collection_id_seq OWNED BY shapes_user_collection.id;
+
+
+--
+-- Name: shapes_user_collection_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('shapes_user_collection_id_seq', 130, true);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_site ALTER COLUMN id SET DEFAULT nextval('django_site_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_collection ALTER COLUMN id SET DEFAULT nextval('shapes_collection_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_collection_individual ALTER COLUMN id SET DEFAULT nextval('shapes_collection_individual_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_facebooksession ALTER COLUMN id SET DEFAULT nextval('shapes_facebooksession_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_profile ALTER COLUMN id SET DEFAULT nextval('shapes_profile_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_user_collection ALTER COLUMN id SET DEFAULT nextval('shapes_user_collection_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add permission	1	add_permission
+2	Can change permission	1	change_permission
+3	Can delete permission	1	delete_permission
+4	Can add group	2	add_group
+5	Can change group	2	change_group
+6	Can delete group	2	delete_group
+7	Can add user	3	add_user
+8	Can change user	3	change_user
+9	Can delete user	3	delete_user
+10	Can add content type	4	add_contenttype
+11	Can change content type	4	change_contenttype
+12	Can delete content type	4	delete_contenttype
+13	Can add session	5	add_session
+14	Can change session	5	change_session
+15	Can delete session	5	delete_session
+16	Can add site	6	add_site
+17	Can change site	6	change_site
+18	Can delete site	6	delete_site
+19	Can add profile	7	add_profile
+20	Can change profile	7	change_profile
+21	Can delete profile	7	delete_profile
+22	Can add facebook session	8	add_facebooksession
+23	Can change facebook session	8	change_facebooksession
+24	Can delete facebook session	8	delete_facebooksession
+25	Can add collection	9	add_collection
+26	Can change collection	9	change_collection
+27	Can delete collection	9	delete_collection
+28	Can add user_ collection	10	add_user_collection
+29	Can change user_ collection	10	change_user_collection
+30	Can delete user_ collection	10	delete_user_collection
+31	Can add collection_ individual	11	add_collection_individual
+32	Can change collection_ individual	11	change_collection_individual
+33	Can delete collection_ individual	11	delete_collection_individual
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_user (id, username, first_name, last_name, email, password, is_staff, is_active, is_superuser, last_login, date_joined) FROM stdin;
+1	mariosky			mariosky@gmail.com	pbkdf2_sha256$10000$taTU4s6SEkpb$S1p+Db/NYhCCRamtFHuYOcqmMIW//XqmUxlZI/Yn3hI=	t	t	t	2012-06-23 18:13:01.872322+00	2012-06-23 18:13:01.872322+00
+2	mariogarciav			mariogarciav@twitter.com	pbkdf2_sha256$10000$AhJwBwvAXwjX$11/9BxB6e88pt0Z+I7H1Tg9jNI56S5BP+EjUHLoF0II=	f	t	f	2012-06-23 20:40:52.694477+00	2012-06-23 20:40:52.468502+00
+3	evospaceorg			evospaceorg@twitter.com	pbkdf2_sha256$10000$DUyHLwBJh5fV$X97F+7TaTiD3RR2miso/8p27stLFSwQwvDPH5J69G7s=	f	t	f	2012-08-14 17:58:43.103267+00	2012-08-14 17:58:42.681506+00
+38	1075586232	Jose	Cota	jose.garciacota	!	f	t	f	2012-12-02 03:12:46.133743+00	2012-10-28 04:01:58.791351+00
+39	100000652921267	Luis	Cuadras	breakinluis	!	f	t	f	2012-10-29 17:23:24.181468+00	2012-10-29 01:28:32.878246+00
+13	768918102	Araceli	Estrada	AraceliTiburcio	!	f	t	f	2012-10-25 15:51:19.861445+00	2012-10-25 15:51:19.823231+00
+14	684680305	Claudia	Porcel	claudia.porcel.581	!	f	t	f	2012-10-25 16:06:28.300848+00	2012-10-25 16:06:28.280874+00
+15	662287078	Alfonso	Romero	alfonsoeromero	!	f	t	f	2012-10-25 16:12:57.402436+00	2012-10-25 16:12:57.377058+00
+16	540143528	JJ	Merelo	jjmerelo	!	f	t	f	2012-10-25 16:24:54.15112+00	2012-10-25 16:24:54.130752+00
+10	702161210	Yuliana	Martinez	yuliana.martinez27	!	f	t	f	2012-08-25 02:12:01.423178+00	2012-08-25 02:12:01.408189+00
+17	525712048	Nac	Mars	nac.el.rojo	!	f	t	f	2012-10-25 16:37:57.467226+00	2012-10-25 16:37:57.446156+00
+18	100004325826269	Tecnologia	Computo	oscar.castanedagonzalez.3	!	f	t	f	2012-10-25 17:06:24.521307+00	2012-10-25 17:06:24.503265+00
+19	100001680695753	Daniel	Duran	BIOHAZARD93	!	f	t	f	2012-10-25 17:06:59.207224+00	2012-10-25 17:06:59.190607+00
+20	100000994035392	Brenda	Lee	B081191	!	f	t	f	2012-10-29 17:23:29.298018+00	2012-10-25 17:08:18.260369+00
+53	100000836498490	Abraham	Granados	abraham.granados.980	!	f	t	f	2012-10-29 17:25:33.855195+00	2012-10-29 17:25:33.835301+00
+21	722143016	Veronica	Carrera Gutierrez	vcarreragutierrez	!	f	t	f	2012-10-25 17:44:28.984088+00	2012-10-25 17:44:28.96354+00
+22	100001769435921	Coordinacion	Tectijuana	coordinacion.tectijuana	!	f	t	f	2012-10-25 17:59:02.018597+00	2012-10-25 17:59:02.000329+00
+23	100002399826050	Daniela	Sanchez	danielasanchez85	!	f	t	f	2012-10-25 18:06:27.120372+00	2012-10-25 18:06:27.103442+00
+11	542643721	Nuvi	Lop	nuvi.lop	!	f	t	f	2012-10-24 16:23:08.738363+00	2012-10-24 16:23:08.71938+00
+54	100001841640444	Eryqqa	Monttaño	eryqqaa.monttano	!	f	t	f	2012-10-29 17:41:27.7027+00	2012-10-29 17:25:37.128988+00
+59	100001143337271	Jose Miguel	Torrez	josemiguel.torrez.3	!	f	t	f	2012-10-29 21:36:20.951209+00	2012-10-29 17:27:26.142208+00
+41	100004600955434	Computo	Tecnologia	ivan.castaneda.7739814	!	f	t	f	2012-10-29 17:24:15.984206+00	2012-10-29 17:24:15.964482+00
+25	741832251	Paco	Barranco	francisco.barranco	!	f	t	f	2012-10-25 20:01:36.721008+00	2012-10-25 20:01:36.701274+00
+7	100000801014313	Mario	Garcia	mario.a.garcia.71216	!	f	t	f	2012-10-04 05:47:39.441819+00	2012-08-16 02:44:43.805439+00
+27	1268420174	Francisco	Valerio	francisco.valerio	!	f	t	f	2012-10-25 20:21:39.389232+00	2012-10-25 20:21:39.369585+00
+50	100001700533669	Ivan	Flores	marcoivan93	!	f	t	f	2012-10-29 17:29:08.214622+00	2012-10-29 17:24:43.871442+00
+5	1079229024	Claudia	Negrete	claudia.negrete.50	!	f	t	f	2012-10-10 20:44:34.574001+00	2012-08-15 21:28:30.736723+00
+26	725192292	Giovana	Contreras	N0890Dy	!	f	t	f	2012-10-25 20:23:59.919342+00	2012-10-25 20:12:54.185762+00
+28	1208458624	Lic Jonathan	Perez	tecjonathan	!	f	t	f	2012-11-19 20:55:58.689499+00	2012-10-25 21:18:56.885422+00
+29	1062600581	Eli	Quetz	Eli.Quetz	!	f	t	f	2012-10-25 21:18:58.604305+00	2012-10-25 21:18:58.585265+00
+30	100003404659035	Cortexiphan	García	cortexiphan.garcia	!	f	t	f	2012-10-25 21:22:10.918752+00	2012-10-25 21:22:10.901338+00
+31	1088057677	Alberto	Garcia Zatarain	alberto.garciaztarain	!	f	t	f	2012-10-25 22:26:43.26009+00	2012-10-25 22:26:43.240306+00
+33	100000473754349	Frank	Arce	francisco.arce.94	!	f	t	f	2012-11-20 20:02:26.200414+00	2012-10-26 00:31:11.59805+00
+35	100002144828792	Dvj Carlos	Vargas	VDJCARLOSVARGAS	!	f	t	f	2012-10-26 07:26:30.641732+00	2012-10-26 07:26:30.620231+00
+36	558757857	Alberto	Guillén	albertog2001	!	f	t	f	2012-10-26 08:23:14.841154+00	2012-10-26 08:23:14.821421+00
+43	803654721	Alan	Sato Aguilar	Kasunari	!	f	t	f	2012-10-29 17:24:19.185437+00	2012-10-29 17:24:19.101837+00
+24	100000352599966	Yovani	Felix	yovani.felix.9	!	f	t	f	2012-12-01 00:36:05.340141+00	2012-10-25 18:54:58.167174+00
+8	657421674	Leonardo	Trujillo	leonardo.ttl	!	f	t	f	2012-11-11 17:50:59.579583+00	2012-08-17 22:03:42.708184+00
+44	100001781799240	Mercedes	Hidalgo	Mrcdsh13	!	f	t	f	2012-10-29 17:24:20.200999+00	2012-10-29 17:24:20.18234+00
+45	100000421213586	Jesus	Rodriguez	jesus.rodriguez.92560281	!	f	t	f	2012-10-29 17:24:22.871863+00	2012-10-29 17:24:22.851101+00
+34	894300595	Christopher	Garcia	LeKriz	!	f	t	f	2012-10-26 20:03:41.893062+00	2012-10-26 05:40:42.901701+00
+65	100000544184106	Amaury	Hernández Águila	amherag	!	f	t	f	2012-11-01 00:31:05.325817+00	2012-11-01 00:31:05.289068+00
+47	100003120978087	Alonso	Artalejo	alonso.artalejo	!	f	t	f	2012-10-29 17:24:33.111718+00	2012-10-29 17:24:33.089547+00
+32	100000905389995	Lorenzo	Sa	Oznerol.sa	!	f	t	f	2013-01-16 00:06:57.316793+00	2012-10-25 22:34:11.198038+00
+37	100004453531036	Luciana	Galván	luciana.galvan.355	!	f	t	f	2012-10-26 22:33:39.552237+00	2012-10-26 22:33:39.533214+00
+48	100001397641606	Meño	Undersquad	meniiorockola	!	f	t	f	2012-10-29 17:24:36.348368+00	2012-10-29 17:24:35.066416+00
+6	1213334604	Alejandra	S	alejandra.m.s.5	!	f	t	f	2012-10-26 22:20:31.03976+00	2012-08-15 21:54:38.337938+00
+64	100000651293308	Xochilt	Ramirez	xochilt.ramirez.79	!	f	t	f	2012-10-30 23:04:08.330992+00	2012-10-30 23:04:08.3138+00
+51	100001137712263	Angel	Beltran Rodriguez	angel.beltranrodriguez	!	f	t	f	2012-10-29 17:24:58.029779+00	2012-10-29 17:24:58.011532+00
+55	605288774	Aimeé	Páramo Mora	aimee1293	!	f	t	f	2012-10-29 17:25:55.828555+00	2012-10-29 17:25:55.805899+00
+66	1210868351	Lily	Dueñas	liliaduenas	!	f	t	f	2012-11-01 19:31:07.789464+00	2012-11-01 19:31:07.76874+00
+61	100000335912385	Lizz	Ramirez	lizette.ramirezmoreno	!	f	t	f	2012-10-29 17:31:46.666166+00	2012-10-29 17:31:46.64473+00
+60	100001423971122	Jahir	Langarica	jahir.langarica	!	f	t	f	2012-10-29 17:27:29.799344+00	2012-10-29 17:27:29.776711+00
+56	100001757226116	Daniel	D Ochoa	Divadleinad	!	f	t	f	2012-10-29 17:26:37.096832+00	2012-10-29 17:26:15.059746+00
+9	1617171520	Chriss	de Blanc	crhdragon	!	f	t	f	2012-11-28 16:53:34.767269+00	2012-08-23 20:17:18.105621+00
+12	528450989	Jose	Torres	josetomen	!	f	t	f	2012-12-03 20:19:58.374483+00	2012-10-25 01:13:30.798952+00
+58	100000719966103	Jozse	Hernandez Gamboa	jose.hernandezgamboa	!	f	t	f	2012-10-29 17:27:00.322358+00	2012-10-29 17:27:00.302212+00
+57	100003128488678	Laurita	Villegas	kira.vz	!	f	t	f	2012-10-29 17:27:39.186334+00	2012-10-29 17:26:35.888396+00
+46	100001357284744	Oddairr	Robbless	o0daA	!	f	t	f	2012-10-29 17:36:13.932553+00	2012-10-29 17:24:27.548211+00
+42	1709522206	Marvz	Rodriguez Vazquez	DooplissX	!	f	t	f	2012-10-29 17:28:06.467425+00	2012-10-29 17:24:17.08522+00
+49	100001756886052	Gisela	Torres	gisela.froggye	!	f	t	f	2012-10-29 17:28:11.062689+00	2012-10-29 17:24:37.622549+00
+40	100001067904998	Jesus	Dominguez	jesusrdominguezv	!	f	t	f	2012-10-29 17:36:27.154196+00	2012-10-29 17:23:37.736656+00
+52	100000950735976	Juan	Martinez Ramirez	juan.martinezramirez.73	!	f	t	f	2012-10-29 17:29:01.030176+00	2012-10-29 17:25:29.17522+00
+62	100004632063554	Deunavez	Djvalek	deunavezdjvalek	!	f	t	f	2012-10-29 17:40:31.272624+00	2012-10-29 17:40:31.246861+00
+63	1058096054	Chuy	Barrios	chuy.barrios.5	!	f	t	f	2012-10-29 19:23:06.428319+00	2012-10-29 19:23:06.408537+00
+67	558961596	Amir	Vazquez	amir.vazquez	!	f	t	f	2012-11-01 21:27:27.002725+00	2012-11-01 21:27:26.980509+00
+4	807826461	Mario	Garcia Valdez	mariogarciaface	!	f	t	f	2013-01-23 07:06:56.187617+00	2012-08-15 19:03:10.217546+00
+68	672276480	Favio	Gonzalez	favio.gonzalez.752	!	f	t	f	2012-11-02 03:49:08.754593+00	2012-11-02 03:49:08.731813+00
+69	100000611731086	Iliana	Dl	iliana.dl	!	f	t	f	2012-11-02 04:20:33.422985+00	2012-11-02 04:20:33.401059+00
+70	730592938	Carlos	Chatez	carlos.chatez	!	f	t	f	2012-11-02 04:54:56.819813+00	2012-11-02 04:54:56.797876+00
+71	541124275	Daniel	Gonzalez	daniellestatcala	!	f	t	f	2012-11-06 18:52:33.934937+00	2012-11-06 18:52:33.917528+00
+72	583331344	Eduardo	Delgadillo	eduardo.delgadillo.3158	!	f	t	f	2012-11-06 19:01:50.564635+00	2012-11-06 19:01:50.540974+00
+73	1213530851	Abigail	Torres	susana.torres.52	!	f	t	f	2012-11-19 17:57:18.138706+00	2012-11-19 17:57:18.099514+00
+74	100001893832357	Estanislao	Vizcarra	estanislao.vizcarra.larios	!	f	t	f	2012-11-19 20:55:14.127543+00	2012-11-19 20:55:14.106083+00
+75	100000733524272	John	Vazquez Encinas	juancarlos.encinas.12	!	f	t	f	2012-11-20 19:52:42.245942+00	2012-11-20 19:52:42.227586+00
+76	693470399	Fernando	Gaxiola	fergaxiola14	!	f	t	f	2012-11-20 20:12:08.027773+00	2012-11-20 20:12:08.004701+00
+77	100000459137393	Jonathan	Amezcua Aguiluz	jonathan.aguiluz	!	f	t	f	2012-11-30 01:47:34.665596+00	2012-11-30 01:30:30.739221+00
+78	100001553235741	Camilo	Caraveo Mena	camilo.caraveomena	!	f	t	f	2012-11-30 02:44:49.6862+00	2012-11-30 02:44:49.662162+00
+79	772609754	Eve	Lia	eve.shot.gun	!	f	t	f	2012-12-01 00:22:30.068756+00	2012-12-01 00:21:59.979532+00
+81	100000958644302	Ivandj	Chaparro Felix	IJCHF	!	f	t	f	2012-12-01 00:49:51.390805+00	2012-12-01 00:49:51.375606+00
+80	100002012978140	Respha Ely	Fierro	resphaely.fierro	!	f	t	f	2012-12-03 04:05:21.119002+00	2012-12-01 00:36:03.912091+00
+82	649362052	Daniel	Miranda	danmazter	!	f	t	f	2013-01-16 04:41:40.4652+00	2013-01-16 04:41:40.389868+00
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY django_content_type (id, name, app_label, model) FROM stdin;
+1	permission	auth	permission
+2	group	auth	group
+3	user	auth	user
+4	content type	contenttypes	contenttype
+5	session	sessions	session
+6	site	sites	site
+7	profile	shapes	profile
+8	facebook session	shapes	facebooksession
+9	collection	shapes	collection
+10	user_ collection	shapes	user_collection
+11	collection_ individual	shapes	collection_individual
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+e488be613515b21cf8a25ce1ead514bf	NDYyN2U4ODgxMjhkN2I0MzgzNGQ2ODQyYzE3ODBhYjAxZTg5YWZjYjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsSdS4=\n	2012-11-08 17:06:24.524874+00
+69a64e6f94319582977474af35723b0c	NjhiMWFlNmZmNGQxMzkyZDQzNDRhM2M1NjBiOWJhMTg4Yzk3NTI1ZjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEshdS4=\n	2012-11-09 07:22:02.98316+00
+1edc27bf2c2f4ce6a1dddbf317988b40	OWYzYjcxZDMyZTBmZWU1ZTM3NGQ0MzBjMDk2OTVkNGRhNDVmYWNhODqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsTdS4=\n	2012-11-08 17:06:59.210409+00
+5c03b1c0fed3db19195cd7f6721a290e	MTFhYmNmYWZjNTJiYmU5NzI3MDlhYzRiNGYzZmM2Zjk1NzJmY2ZjYTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtCdS4=\n	2012-11-15 19:31:07.793466+00
+f8e4da847de1fe0dca10abb0f15214c9	MDMyODYyOGVmYjhiOGQzYmViNzFkZWQyOGI0NTEwMzFjZjE0YTA3NjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsUdS4=\n	2012-11-08 17:08:18.282569+00
+277072bea692cf835b7bbedd5fb831ab	ZDNiNzc3NTg0N2I0M2QzYzM4MzQxZjI4OWE1OTk5YWFhZmYxYTAzZDqAAn1xAShVDXJlcXVlc3Rf\ndG9rZW59cQIoVRJvYXV0aF90b2tlbl9zZWNyZXRVKno2RTU3UG1WQWMwR2JwMjIzYlVsQ29JWVFS\nV1poYmZEeEtRem02Z0o2Z1ULb2F1dGhfdG9rZW5VKXBkYTRDRDlwU1RvNmx6cldDVndENVZqSDBX\nVmo4TnUyTnlkcjNWYkdBVRhvYXV0aF9jYWxsYmFja19jb25maXJtZWRVBHRydWV1VRJfYXV0aF91\nc2VyX2JhY2tlbmRVKWRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kVQ1f\nYXV0aF91c2VyX2lkSwJ1Lg==\n	2012-07-12 22:14:01.2477+00
+5927912fc2e29de1e7af5729c41e2fcf	MWIzNDQxMTA4ZWNjZmY3YWRhOTljYjQzM2FjYTMyZTA3OTcxMGExMDqAAn1xAVUNcmVxdWVzdF90\nb2tlbnECfXEDKFUSb2F1dGhfdG9rZW5fc2VjcmV0VSl5UG9VazV2eUV3a1E5bll2OTd0MnY3aUlj\ncWhvZjVZcm5kUEJnZlp1TVULb2F1dGhfdG9rZW5VKlJwaUVHY1FIa3ZJMHVjb2x0Q0doM2dESkhM\nMVZWN0pNcWozeTBka2ZQb1UYb2F1dGhfY2FsbGJhY2tfY29uZmlybWVkVQR0cnVldXMu\n	2012-08-14 21:49:55.667591+00
+9473ca76f3f9c082d83298ce34b911f6	NTI4ZTQ4OTVmY2UyMWE5NmMzZmI0NmE3MTc5ZmVlY2IzMTlhZGZmZjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsIdS4=\n	2012-11-09 16:01:49.355692+00
+e6dddb9dd5edb094734036b95277bbe2	MDMyODYyOGVmYjhiOGQzYmViNzFkZWQyOGI0NTEwMzFjZjE0YTA3NjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsUdS4=\n	2012-11-08 17:08:22.91971+00
+80d6032788a290055d22999661bb03eb	YmZjNjk2YWQzZDhiNjQ3ZGY3YjliNGY0NDhkNjJhN2FmYmI2NjJlMzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsVdS4=\n	2012-11-08 17:44:28.988598+00
+8bff2f159123800b947be6f1ea51009f	M2Q1ZDQ5MzcwMmQ4Y2FlNTMxODRjZWMzOWU1OWMxNjI5MTVjYjAzMzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtHdS4=\n	2012-11-20 18:52:33.939235+00
+cd9fa51d8b7014a61a74d7e6093218f5	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-09-08 02:13:52.528627+00
+41a37b137370eafba289411fd66fdf90	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-08 18:01:09.62528+00
+c4eab6c8d8bf304c7ba9d42ffa71d06d	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-09-11 15:23:47.9465+00
+79e006d4c9e54ec05c6c42a7098f7962	YmM2M2MyZGUxNDk4NzIzZGMxNTFhMDY4Zjc0YjkwNTlkOThiZTE2NzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsJdS4=\n	2012-10-02 19:22:36.799812+00
+e1783f5651dcd91dfa3da2985878b2e7	YmZiN2UxNTdkNjNhYzE3YmZiODA3YjUwN2E5NjdhM2ZhNDFmY2Q5NDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsXdS4=\n	2012-11-08 18:06:27.123952+00
+2fac9e1f3e93a9d45b8b0927caa7f746	NWZmYmE3MzRjMDY1MDA5N2NhMDNkZDYyYzc0YzRmZjYyMGU2YzkzNjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEspdS4=\n	2012-11-12 17:24:15.988235+00
+bb8edf034229c210c671e50fe217c438	YmM2M2MyZGUxNDk4NzIzZGMxNTFhMDY4Zjc0YjkwNTlkOThiZTE2NzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsJdS4=\n	2012-10-07 17:37:39.333356+00
+a700db77a421ec8a927458e25c81c34e	ZGYwOTkwMDlkMzVhNzJjNTQ3NGNkN2RjNDY3MzQzNTFkMDczYzMwYzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsadS4=\n	2012-11-08 20:23:59.923184+00
+31cec868c99f3d85dce225888eed4591	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-10-16 00:18:07.91522+00
+d0e05deea4756c5f7d0fa4663b5d47ba	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-10-16 18:21:30.394681+00
+098b4c45c487f7d7f2086dbe5be37b9e	YmM2M2MyZGUxNDk4NzIzZGMxNTFhMDY4Zjc0YjkwNTlkOThiZTE2NzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsJdS4=\n	2012-10-16 20:30:23.041743+00
+fd552796b27ee8bdd3ffa900b0807248	NTI4ZTQ4OTVmY2UyMWE5NmMzZmI0NmE3MTc5ZmVlY2IzMTlhZGZmZjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsIdS4=\n	2012-08-31 22:03:42.72353+00
+1639d6e089aa997306dd1eef91a997c0	YjgwNzk0NDllNGUzZGFjNzc4NGM1Njk4NGNhZWNjYzFhMDZiNTZhZjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsHdS4=\n	2012-10-18 05:47:39.445654+00
+62df5bb487da7ed4b434e032afc2b800	ZGY1NWZhZWRkYzdjZjk3OGI2ZDQ0ZTc5MGY2ZjY1ZmZiM2RkNGM4YjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsMdS4=\n	2012-11-08 08:55:14.116355+00
+d114d2dd56d2ec058578db6aed30ea15	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-10-24 20:46:22.61207+00
+fbe77b8ac575fe6c96888afcfce9193f	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-11-06 14:55:51.215478+00
+697f25c042f8a103a21f8dbeccb9e1e3	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-08 15:56:36.440305+00
+be22fe57c546d37863eb2b16b57ffc5e	NDRlNWI4ZTJjMWE0YWQ2ZDI1M2RlNGFlNDU4MDk0YzIwNGVmMTFmMjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsOdS4=\n	2012-11-08 16:06:28.30508+00
+d3a34cb38fb2c0a5e14ae8e507949936	NzQ3NGVlZmEyZGU5YmY0N2Q1MDZlODBkNzlkNzIxMzcyNmM5OGRhNTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsPdS4=\n	2012-11-08 16:12:57.407776+00
+1f2ea56267df96f2a4ba6fb57e1de438	ZTlhMTAxOWU2ZmMyMzEyMjU0YjE2MWQ1YTdlM2QwNzE2NDYwZGVlMjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsQdS4=\n	2012-11-08 16:24:54.155647+00
+920fbd26e895e17b3e751cd804f249a3	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-08 16:46:05.406499+00
+a6fe422a9166c1c0d285f40ef30883e3	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-12-03 18:04:34.574943+00
+34a4c9168845eb6d390d252d51111dd8	ZGVjYTM3NWYwZmVlMTUwMTlmNjYxZWQ0ZDU2ZDgyMmM0YmZhNTEzOTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtDdS4=\n	2012-11-15 21:27:27.006931+00
+106550440d14273c266806836589a2dd	OGE1YjQ5N2NiNDUyZTQ3N2M4MDgyMzczNThjOWVkM2IxZDA0YjNmOTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtAdS4=\n	2012-11-13 23:04:08.334498+00
+71657fc5e92c61ad944dc68a61eb0225	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2013-01-30 02:25:42.935978+00
+5fdb08f79630f4c74951d4d088a9362f	YWEwOWIzZWE3ZTRlOGFjZDRhYTk1MzY5ZTFjNWU0YTM3Zjg3ZDQwZTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsidS4=\n	2012-11-09 19:58:35.481612+00
+d71b6a6d5147bdf50544e6bd438df5a8	MmEyZGJkNDRlZTM5NTJhYmYyNWI2NGFiZmExYjlhMWZiNzUwMDc2ZjqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRLKlUSX2F1dGhfdXNlcl9iYWNrZW5kVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNr\nZW5kcQJ1Lg==\n	2012-11-12 17:28:06.471517+00
+1cbf3efd4cb69f44710d1016caca141d	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-09 21:47:40.015754+00
+708b26759bfb1e5d49d9aa7700ba17b2	NDI3MDU3ZWRkYWI4MmY0YTg4MmM0NzEyY2U0ZTk4YjEzNTIyMTNjNjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtIdS4=\n	2012-11-20 19:01:50.568884+00
+251e0f8af0346889447f75cf20e0685b	ZDYzZmM1MDgyMGU0ZWEyMTRjZDQ4ZWU2ZGM0ZDFjMWIzNjc0ZDRhZjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtKdS4=\n	2012-12-03 20:55:14.13189+00
+df51251a9aef782a6a5873bcdef0cc9d	YTk3YzQ2ZDUwOGYxMDNmYzg2ODU2MWQxM2ZlZjhhNWYyOTliMGFhNjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsmdS4=\n	2012-11-11 04:01:58.815013+00
+ebb27eaba363c41b3462274a096db120	ZGY1NWZhZWRkYzdjZjk3OGI2ZDQ0ZTc5MGY2ZjY1ZmZiM2RkNGM4YjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsMdS4=\n	2012-11-09 22:36:47.467067+00
+bbe06564dbd64b81c92fdf8dca946dda	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2013-02-06 06:06:57.059498+00
+d631a3349a5535692acd943ea0d841dc	MGIwYjA1N2IzZmUzMWFmM2IzYmY2ZDM4NWU2NzYxOWRlZDAxMTA4MTqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRLMFUSX2F1dGhfdXNlcl9iYWNrZW5kVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNr\nZW5kcQJ1Lg==\n	2012-11-12 17:24:36.353323+00
+82ddc45b4780578414394c93afb23b1c	ZGY1NWZhZWRkYzdjZjk3OGI2ZDQ0ZTc5MGY2ZjY1ZmZiM2RkNGM4YjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsMdS4=\n	2012-11-12 23:39:47.960615+00
+0c2932f0d757fd608940631509faaaa8	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-12-12 07:34:22.933378+00
+5b5e29a09ff1a19fea6cceb01e2903cc	YmM2M2MyZGUxNDk4NzIzZGMxNTFhMDY4Zjc0YjkwNTlkOThiZTE2NzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsJdS4=\n	2012-11-08 19:05:27.636477+00
+9ff23d5e6b02c4d5837083ad6393e0e3	ZjllYTA2YWRhMTUyZjc0ZWIxNjNiOTRhNDQ0ZjY0MGQ1Y2FiMzg0NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEs1dS4=\n	2012-11-12 17:25:33.859112+00
+b683864fe9ef76f2f45a63aad8f61338	ODBkYzQ4ZDI2OWM1MzEwM2QzMGVjNTJjMzIyYzRiZjE4MDY1ZDE3MDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtEdS4=\n	2012-11-16 03:49:08.759196+00
+1f84f3512455ce23e01731aa7a4cd114	YWEwOWIzZWE3ZTRlOGFjZDRhYTk1MzY5ZTFjNWU0YTM3Zjg3ZDQwZTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsidS4=\n	2012-11-09 20:03:41.897565+00
+2470e72d35f6e0dff63c9542c927a292	ZWU0NmI1NjRmY2M1YzZiNzkxYTFjMTBlZjFhYmI2MTBjZDYwNTgwNTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEs7dS4=\n	2012-11-12 17:27:26.168252+00
+9d488dd713ef46dff095d15af3e9384e	N2U5MzkxODE3NDk1ODk2MDg0MjI3NzA5ZTdjNTJlYzQ4N2FkY2ZjMDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtSdS4=\n	2013-01-30 04:41:40.469928+00
+f6a7e1793b0dc8e75b16678624678970	ZDMyZjhhOGRiNTA2OGQzYjMyNjI2YjdlMTkwZTFkYzI1Mjc2MGJhODqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEs9dS4=\n	2012-11-12 17:31:46.673184+00
+16b378f74bf681c2dafe28d21b78d6fa	Y2NiYTY4OWE5ODJmOTE2ZjRmZGJlOTg4Y2EwMGI3Y2I3MDY5ZmZiYjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEscdS4=\n	2012-12-03 20:55:58.693762+00
+899658e97c958422897d424b9ecfe65a	ZGY1NWZhZWRkYzdjZjk3OGI2ZDQ0ZTc5MGY2ZjY1ZmZiM2RkNGM4YjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsMdS4=\n	2012-11-09 22:37:11.728113+00
+5ad71ca0563381306f0b8297ae5b4499	OTY2YTg0MTQ3MzRhMDE3ZDRmN2FjNWIxYzU4ZDFhNDg2YTQzZTNiMDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtNdS4=\n	2012-12-14 01:47:34.669639+00
+66033fb275ed2ab219ccfa28484497db	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-11 04:09:55.685729+00
+486c9b542bc009ccbc67343320f64156	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2013-02-06 06:06:59.063962+00
+1007cac00430fbe1443095b5bc2bb8b2	NzkzOGMyNDcyOGM3YTdlZGU2M2I5YjcxYTI5NmVlYzIwODhkYzM2MDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsrdS4=\n	2012-11-12 17:24:19.189539+00
+127c60ad0eaa3e7073e9788c70a787c5	OThmZjg0ZmI2ZjdjNmVkMjIzYWVlOGFhMTA0ZDZmMDdlNzAxZjQ1NjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtLdS4=\n	2012-12-04 19:52:42.25033+00
+7c24952af4e533e41cc91a971abc16d2	Mzk4YTllM2ZjZTI2YzZhNTEzMWIwNzkwYmMyYThmYzhkMWMzMTVkZTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsYdS4=\n	2012-12-15 00:36:05.344176+00
+e2f0fedcf54fdbfcfcb1489c00d1c17e	Mzk4YTllM2ZjZTI2YzZhNTEzMWIwNzkwYmMyYThmYzhkMWMzMTVkZTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsYdS4=\n	2012-11-28 21:25:21.441513+00
+68b5546d243521a4880e229c9dee260d	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-11-14 04:32:59.879042+00
+ed7c0d9ddf332bac7ce69d3ed11b2a1e	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-12-15 00:55:30.219352+00
+437267359d5807adac834bc38051214c	ZGY1NWZhZWRkYzdjZjk3OGI2ZDQ0ZTc5MGY2ZjY1ZmZiM2RkNGM4YjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsMdS4=\n	2012-12-17 20:19:58.378061+00
+60552f0ccac094ddc9fca8447cb1d862	MTgxNGU5ODgxMjE4MGM0ZjkxOThmNTVlOWQ3OWM1ZGQ4NGEzN2NlNjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsgdS4=\n	2013-01-30 00:06:57.320693+00
+117c39c383f86be2afe8f083c43f656c	NDFmOTFhYWJiOWNiMWIyZmFjZmRlMjMyYjZmNGU2NTYzYzM4MzIyNzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsZdS4=\n	2012-11-08 20:01:36.725656+00
+7af35e2dcdfc48b23f6e2af3d1823d2f	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-09 22:30:56.432326+00
+1448d432a6544d1b2ec33a72a78e6292	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-09 23:01:48.865138+00
+314c4e5bd9a7b0c9b80814293ba40f5b	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2013-02-05 23:04:29.793751+00
+83df18f2787c3b3853d8fc56ad350504	ZGY1NWZhZWRkYzdjZjk3OGI2ZDQ0ZTc5MGY2ZjY1ZmZiM2RkNGM4YjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsMdS4=\n	2012-12-14 01:47:36.033823+00
+d373d3e14a5822c77edbadc2e8f7b33c	NTI4ZTQ4OTVmY2UyMWE5NmMzZmI0NmE3MTc5ZmVlY2IzMTlhZGZmZjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsIdS4=\n	2012-11-25 17:50:59.58318+00
+150ec3100942c1314eb43096e04ba0ab	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-12 17:34:13.336135+00
+9d5720fcad21c0160e46e0a1a54582a6	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-09 22:56:11.204946+00
+342cbbcbc5bb552398b27cac72691e87	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-12-04 07:18:12.067699+00
+fa3ac4c521669515c6e3ed7dd2c2688a	OTkyNTVlZjEzZjk3NjQzNDY1OTdhNGUwZWYzMGQ4ZTRkYTNmMDY5MzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsndS4=\n	2012-11-12 01:28:32.903178+00
+d8c702360ef10f934af8c6894f4d5ac6	NGFmOTU1NWJjY2FkZDQ1Y2ZlMjdkOWE2NzVhYjg5ZTVjM2FiNmNkZDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsodS4=\n	2012-11-12 17:36:27.157991+00
+69e0564ab9aa79a9909b41b28be40d3f	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-12-15 00:36:19.189446+00
+59af71bc73243f81735747b276f36d4f	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-12 17:41:29.56856+00
+d0fed8417dc34a6588f09f356cd6067d	NmQxZDE2NmQ4YWMyOTA1YThlNTg5NzUzOTc4MjA2MDA2MjBhMzNjNjqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRLBFUSX2F1dGhfdXNlcl9iYWNrZW5kVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNr\nZW5kcQJ1Lg==\n	2013-02-06 07:06:56.191457+00
+4647ce49cf22ad5fdca315b81f91118f	NjY3MGQ0ZjljODA2MTBiZDZkMzEyYjBlMTg0NDQ3OTZkNDA4OWJkNTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEs/dS4=\n	2012-11-12 19:23:06.432496+00
+02c839ee900235f1ef979228597335fa	NjEyNDQ4MjY2OGMxNDY5NzkyOTI2NTdjNWY2ZWZlZWUyNDVjOWQyNjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtBdS4=\n	2012-11-15 00:31:05.329756+00
+f2f50d45b07de262cd63a4d50e8b3ad6	YTk3YzQ2ZDUwOGYxMDNmYzg2ODU2MWQxM2ZlZjhhNWYyOTliMGFhNjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsmdS4=\n	2012-12-16 03:12:46.139672+00
+298ecce3009387705f0f2ab026806870	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-12-06 06:20:23.037019+00
+7cba533bbd9ddadc5e8fd356a0793ba3	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-12-12 20:37:48.597588+00
+11cca49a768d58a25513ab5959fe6d6d	MTgxNGU5ODgxMjE4MGM0ZjkxOThmNTVlOWQ3OWM1ZGQ4NGEzN2NlNjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsgdS4=\n	2012-12-07 01:15:55.022768+00
+b39c54613a43cc1b5acb30ac67b33b77	NmQxZDE2NmQ4YWMyOTA1YThlNTg5NzUzOTc4MjA2MDA2MjBhMzNjNjqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRLBFUSX2F1dGhfdXNlcl9iYWNrZW5kVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNr\nZW5kcQJ1Lg==\n	2012-12-25 22:41:48.453383+00
+7315d98a6cc548f297b020a72b21d758	ZGYwOTkwMDlkMzVhNzJjNTQ3NGNkN2RjNDY3MzQzNTFkMDczYzMwYzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsadS4=\n	2012-11-08 20:12:54.208552+00
+91086de62ddf6a8a03f18c86d04439bf	ZDZhYzZjOWVhZmZhZjgxNjJkZDZiNjcyMGRmZTI2NDFhNWNkZGM0MDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEskdS4=\n	2012-11-09 08:23:14.846359+00
+73eba9d0f16c518545f600e46042d9ef	NGNlOGJkMTRiNDkwOTgwODZlODFhMDM2MTc3MWZkYjc4ZGI3MjQ5ODqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEs3dS4=\n	2012-11-12 17:25:55.833212+00
+e52d3d8aceee94f1ce9662cc6dbba981	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-12 17:34:16.344419+00
+3630c7e9132734d88fb7d6078395f185	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-12 17:36:38.667124+00
+01de7a105c351e9beaa6e159141bb56b	OTkyNTVlZjEzZjk3NjQzNDY1OTdhNGUwZWYzMGQ4ZTRkYTNmMDY5MzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsndS4=\n	2012-11-12 17:23:24.185242+00
+6ed25b242dd92f398d7e2a5733c7a65d	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-12 17:42:05.103394+00
+c6a5ba1d716d71acc2fdf92f5bbdcb52	Y2Y0YzZjYzExODk5ZmRkZGFiOWI1MzUyM2RkNzI3NWY1YmUzNTQ4NDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEszdS4=\n	2012-11-12 17:24:58.032775+00
+05264926e04dc0ac4c9334d87a9cede4	MTgxNGU5ODgxMjE4MGM0ZjkxOThmNTVlOWQ3OWM1ZGQ4NGEzN2NlNjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsgdS4=\n	2012-11-28 05:04:29.221719+00
+08eb254392a51bbcd6f17c6f41fcf6f5	YmM2M2MyZGUxNDk4NzIzZGMxNTFhMDY4Zjc0YjkwNTlkOThiZTE2NzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsJdS4=\n	2012-11-15 19:04:56.962386+00
+a5ce60ac601f8d840dbb54c3574471b0	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2013-01-15 00:49:23.222563+00
+70e228567ce1d3ff7eaedfdd4f1eb42b	MjEzN2YzMWRjMzRiZDUwYWY5NzRiOTg4Y2M1NTg2NDE0NzNkMzViMjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsbdS4=\n	2012-11-08 20:21:39.393289+00
+2ce81bf275604c04a767c72abe59dfb5	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-11-09 08:50:48.462218+00
+589ec063ad36dac2751b9332436e1434	ZWU5N2NiNDNkODM0MzMxNjE1NDJlNTE0N2U0ZmY5YWQ2MmI4NzQ2ZDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtFdS4=\n	2012-11-16 04:20:33.427622+00
+d28baf20b01d25947e727411f17b76a8	ZjdkM2U4MTJkNjAyZDA3MDMyMTlkMjM0NjA3MGJkZjIzN2UxMDYyOTqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRLOFUSX2F1dGhfdXNlcl9iYWNrZW5kVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNr\nZW5kcQJ1Lg==\n	2012-11-12 17:26:37.100493+00
+7502a4c6b45734276c5c7ada0e4d8278	Y2NiYTY4OWE5ODJmOTE2ZjRmZGJlOTg4Y2EwMGI3Y2I3MDY5ZmZiYjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEscdS4=\n	2012-12-03 20:30:38.45847+00
+e75028f56be21b912737c9562f3d895f	NWYzN2VkYjljNGFjMjc2YzA2YmE3M2I2ZmZmNzczOTliNTA0ZDcxMDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEs0dS4=\n	2012-11-12 17:29:01.034306+00
+ed165c97276b7456f21d1e76c289b113	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-12 17:35:23.679833+00
+ba5c5c7b5e2581ab008488ca29cc9c6a	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-11-10 01:05:27.379008+00
+32057450aa351ed04a3bdb9017be3fe7	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-12 17:37:55.733495+00
+eabc7d77b985f43e310ee261bf2dc928	MDMyODYyOGVmYjhiOGQzYmViNzFkZWQyOGI0NTEwMzFjZjE0YTA3NjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsUdS4=\n	2012-11-12 17:23:29.301212+00
+bad313fd1a4cb3c1420e4da69c331cf7	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-12 17:43:35.209222+00
+d16de12b39f307cd596d6281423afb2c	ZmVjYjE2NzFmNDhhNGY0ZDI0YjJkM2JkMmJmYTNiODIwNGViZGFkODqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtPdS4=\n	2012-12-15 00:22:30.073125+00
+79a707c68b8a8d28110747d5db4b548c	ZWU0NmI1NjRmY2M1YzZiNzkxYTFjMTBlZjFhYmI2MTBjZDYwNTgwNTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEs7dS4=\n	2012-11-12 21:36:20.955069+00
+a035e0c3e042b0743cd227e9d21ab4ab	NjhiMWFlNmZmNGQxMzkyZDQzNDRhM2M1NjBiOWJhMTg4Yzk3NTI1ZjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEshdS4=\n	2012-12-04 20:02:26.203209+00
+1bf303505275712714516be40271b625	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-11-15 19:05:08.744275+00
+d2a2632069b42dce0c4c5caca618a213	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2013-01-24 21:16:03.544883+00
+bf102f4c57e705f26eb82b52134b45bc	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-12-13 02:01:15.045377+00
+b3a97ae940f3806462f077305f4dd6cc	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2013-01-29 20:50:21.186231+00
+157363638693ba3147356e41c2a35466	NzIwYTA4NTc5NzNlOTYwYmE3MTcwNTMwMjJiMzk5ZmMxNjNiM2IxMzqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRLDFUSX2F1dGhfdXNlcl9iYWNrZW5kVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNr\nZW5kcQJ1Lg==\n	2012-11-09 22:30:03.581418+00
+a457ee3886a87fc7c1d47daec6fbc903	Y2NiYTY4OWE5ODJmOTE2ZjRmZGJlOTg4Y2EwMGI3Y2I3MDY5ZmZiYjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEscdS4=\n	2012-11-08 21:18:56.908359+00
+4140f4fc34a25ee6abd134a93d538eb4	YjRhZTI3ZWE2ZjFmZTgxNDc2MzZjYjhkZmE0OTA4MWYyMDQ2ZTY4MDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsddS4=\n	2012-11-08 21:18:58.607757+00
+c7b94c7e52a8bf8546ee22394abef993	NDdiZjU0NmRmMjUzM2M3MzE0NGQ5ZmVhN2E1MmVmMTZlNmIxYzJlMTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtGdS4=\n	2012-11-16 04:54:56.824149+00
+d83ac82c3c8aed8ced796eb605c522e3	ZmUwNmRkOGM3NjgxMjAzNTBkZTA4NTdkYmQ5NTI1ZDg3NjliNzE4YzqAAn1xAShVDV9hdXRoX3Vz\nZXJfaWRLOVUSX2F1dGhfdXNlcl9iYWNrZW5kVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNr\nZW5kcQJ1Lg==\n	2012-11-12 17:27:39.190741+00
+4242b5cf96d62bde2909cd6e8ef8503d	OTY2YTg0MTQ3MzRhMDE3ZDRmN2FjNWIxYzU4ZDFhNDg2YTQzZTNiMDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtNdS4=\n	2012-12-14 01:33:40.068919+00
+277dc44cadcb7355466939671cf08a11	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-08 21:22:56.840755+00
+4bcf06f4eff314b4ab8cf5e63ee57521	NmQwN2Q4MDA0M2RkMWJlNTBmY2Q1Y2I1OTlhYzliNGM2NzJhNDFlYzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsfdS4=\n	2012-11-08 22:26:43.264387+00
+43566c924a7767fa5cc73f68f1fde09e	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-11-10 20:21:09.938029+00
+f1480fbbdab4ea29a60ec8d7dc9437ee	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-11-27 19:32:16.142983+00
+efa8af6f7830f869fcada055aae05d04	YmM3MDIzZjgwNzA5NjUzOTM4Zjc4NDA3MWQ4YTk3MDkwMWNkOTVkZTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEs+dS4=\n	2012-11-12 17:40:31.2764+00
+6838174186df678678d56d2db91a9441	YWQ3N2I1YThmZWIyMDM1YWRkY2I1OTFkY2ZlYzVmNGZhOGJiMjJmZTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtMdS4=\n	2012-12-04 20:12:08.034598+00
+b5879b76873c302388c508a2ecd03177	ZmQ0OTM5NzBiMzlhYWQ1ZGZkYTAzYWJkZThmMDJjZDVmNTlkNDIxYjqAAn1xAS4=\n	2012-11-12 17:45:13.713849+00
+35e169cf83985f172b5a9a6d73421a3d	MTgxNGU5ODgxMjE4MGM0ZjkxOThmNTVlOWQ3OWM1ZGQ4NGEzN2NlNjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsgdS4=\n	2012-11-28 17:36:37.089214+00
+27d52e78ad8f9311b42e9e56938b4bd3	Y2ZlMzI1NTkwNGJhNWM4OGU4ZTRiODEzMWY2NjUwNzVmOTQ3MjU3ZDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtQdS4=\n	2012-12-15 00:40:48.400334+00
+c34a3a27b7d1a6fdf2d9052aeed00193	Y2ZlMzI1NTkwNGJhNWM4OGU4ZTRiODEzMWY2NjUwNzVmOTQ3MjU3ZDqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEtQdS4=\n	2012-12-17 04:05:21.122709+00
+282b1fb4cbb5af389d0e795b93797376	NjhiMWFlNmZmNGQxMzkyZDQzNDRhM2M1NjBiOWJhMTg4Yzk3NTI1ZjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEshdS4=\n	2012-11-09 00:31:11.623683+00
+60c853e902e63bc7be0eb7ec8b56ee6b	ZTE4OTM4Y2IwMDE5ZjM4YWJkMDdhYmIwNTFlOTFlNDlkZmZmZGI1MjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsEdS4=\n	2012-11-09 00:37:53.160846+00
+1e3aca31e8709c29f97f53ed2c2ff30f	NTI4ZTQ4OTVmY2UyMWE5NmMzZmI0NmE3MTc5ZmVlY2IzMTlhZGZmZjqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVR9zaGFwZXMuYmFja2VuZHMuRmFjZWJvb2tCYWNrZW5kcQNVDV9hdXRoX3Vz\nZXJfaWRxBEsIdS4=\n	2012-11-09 02:34:03.437897+00
+\.
+
+
+--
+-- Data for Name: django_site; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY django_site (id, domain, name) FROM stdin;
+1	example.com	example.com
+\.
+
+
+--
+-- Data for Name: shapes_collection; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY shapes_collection (id, name, description, creation_date, visibility) FROM stdin;
+1	Test 1	test	2012-09-30 16:52:08.826597+00	PU
+2	Test 1	test	2012-09-30 17:03:49.375399+00	PU
+3	Test	test	2012-09-30 17:06:40.469953+00	PU
+4	Funciona	Funciona	2012-09-30 17:20:46.930612+00	PR
+5	MiCollecion	Super	2012-09-30 17:30:09.411339+00	PU
+6	IliCollection	Personal Collection	2012-09-30 17:31:45.266398+00	PR
+10	Escuela	Mi Escuela	2012-10-02 19:00:37.520672+00	PU
+12	MyCollection	Cool	2012-10-11 01:10:24.511576+00	PU
+15	Leo's Collection		2012-10-13 00:22:33.40029+00	PU
+22	Bonitas		2012-10-18 07:34:10.802047+00	PU
+23	Public		2012-10-21 20:53:35.35491+00	PU
+24	upoiu qoiupoiu  poi qwerq		2012-10-22 04:57:03.667896+00	PU
+25	qwerewqwwwwwq		2012-10-22 05:04:35.715381+00	PU
+26	Rojos Rifan	Evolucionar algo rojo	2012-10-22 20:26:46.186887+00	PU
+27	ok		2012-10-23 03:47:09.661954+00	PU
+28	qqq		2012-10-23 03:50:14.779218+00	PU
+29	qqq22		2012-10-23 03:51:07.915327+00	PU
+30	Another		2012-10-23 03:52:20.402251+00	PU
+31	Another		2012-10-23 03:57:58.146062+00	PU
+32	Public	Public Collection	2012-10-23 04:29:26.821398+00	PU
+33	q		2012-10-23 04:35:23.967253+00	PU
+34	Public	Public Collection	2012-10-23 05:00:48.767505+00	PU
+35	Public	Public Collection	2012-10-23 05:00:58.035842+00	PU
+36	Public	Public Collection	2012-10-23 05:01:28.482969+00	PU
+37	Public	Public Collection	2012-10-23 05:02:03.307742+00	PU
+38	Public	Public Collection	2012-10-24 16:23:08.72826+00	PU
+39	Mosa		2012-10-24 16:24:54.216508+00	PU
+40	Nueva		2012-10-24 22:49:10.425835+00	PU
+41	Public	Public Collection	2012-10-25 01:13:30.808069+00	PU
+42	mis pinturas	agradables	2012-10-25 01:38:57.268551+00	PU
+43	Public	Public Collection	2012-10-25 15:51:19.831117+00	PU
+44	chelsy		2012-10-25 15:53:17.46828+00	PU
+45	Public	Public Collection	2012-10-25 16:06:28.289125+00	PU
+46			2012-10-25 16:07:02.814796+00	PR
+47	Public	Public Collection	2012-10-25 16:12:57.387925+00	PU
+48	Public	Public Collection	2012-10-25 16:24:54.140482+00	PU
+49	Public	Public Collection	2012-10-25 16:37:57.455788+00	PU
+50	Public	Public Collection	2012-10-25 17:06:24.512646+00	PU
+51	Public	Public Collection	2012-10-25 17:06:59.19878+00	PU
+52	Public	Public Collection	2012-10-25 17:08:18.268968+00	PU
+53	Public	Public Collection	2012-10-25 17:44:28.973241+00	PU
+54	Public	Public Collection	2012-10-25 17:59:02.00918+00	PU
+55	seleccionadas		2012-10-25 18:00:10.464483+00	PU
+56	Public	Public Collection	2012-10-25 18:06:27.1122+00	PU
+57	Public	Public Collection	2012-10-25 18:54:58.176778+00	PU
+58	Public	Public Collection	2012-10-25 20:01:36.710629+00	PU
+59	Public	Public Collection	2012-10-25 20:12:54.195071+00	PU
+60	Public	Public Collection	2012-10-25 20:21:39.378982+00	PU
+61	Public	Public Collection	2012-10-25 21:18:56.893344+00	PU
+62	Public	Public Collection	2012-10-25 21:18:58.593428+00	PU
+63	Public	Public Collection	2012-10-25 21:22:10.910347+00	PU
+64	Public	Public Collection	2012-10-25 22:26:43.250045+00	PU
+65	Public	Public Collection	2012-10-25 22:34:11.206551+00	PU
+66	Public	Public Collection	2012-10-26 00:31:11.608897+00	PU
+67	Public	Public Collection	2012-10-26 05:40:42.911513+00	PU
+68	Negros		2012-10-26 05:49:22.512848+00	PU
+69	Public	Public Collection	2012-10-26 07:26:30.629274+00	PU
+70	Public	Public Collection	2012-10-26 08:23:14.830692+00	PU
+71	Public	Public Collection	2012-10-26 21:10:35.048788+00	PU
+72	figuras	las que seleccione	2012-10-26 21:49:07.984729+00	PU
+73	Public	Public Collection	2012-10-26 22:33:39.541836+00	PU
+74	Public	Public Collection	2012-10-28 04:01:58.800918+00	PU
+75	Hola		2012-10-28 04:03:07.442261+00	PU
+76	Public	Public Collection	2012-10-29 01:28:32.887922+00	PU
+77	Public	Public Collection	2012-10-29 17:23:37.746878+00	PU
+78	Public	Public Collection	2012-10-29 17:24:15.973677+00	PU
+79	Public	Public Collection	2012-10-29 17:24:17.094237+00	PU
+80	Public	Public Collection	2012-10-29 17:24:19.175056+00	PU
+81	Public	Public Collection	2012-10-29 17:24:20.191537+00	PU
+82	Public	Public Collection	2012-10-29 17:24:22.861695+00	PU
+83	Public	Public Collection	2012-10-29 17:24:27.55749+00	PU
+84	Public	Public Collection	2012-10-29 17:24:33.100446+00	PU
+85	Public	Public Collection	2012-10-29 17:24:35.076357+00	PU
+86	Public	Public Collection	2012-10-29 17:24:37.63232+00	PU
+87	Public	Public Collection	2012-10-29 17:24:43.879465+00	PU
+88	Public	Public Collection	2012-10-29 17:24:58.021306+00	PU
+89	Public	Public Collection	2012-10-29 17:25:29.184995+00	PU
+90	Public	Public Collection	2012-10-29 17:25:33.844894+00	PU
+91	Public	Public Collection	2012-10-29 17:25:37.139262+00	PU
+92	Public	Public Collection	2012-10-29 17:25:55.816184+00	PU
+93	Public	Public Collection	2012-10-29 17:26:15.068649+00	PU
+94	Public	Public Collection	2012-10-29 17:26:35.897607+00	PU
+95	Public	Public Collection	2012-10-29 17:27:00.311649+00	PU
+96	Public	Public Collection	2012-10-29 17:27:26.152424+00	PU
+97	Public	Public Collection	2012-10-29 17:27:29.786719+00	PU
+98	Public	Public Collection	2012-10-29 17:31:46.655224+00	PU
+99	Public	Public Collection	2012-10-29 17:40:31.25637+00	PU
+100	test		2012-10-29 18:03:28.115802+00	PU
+101	Public	Public Collection	2012-10-29 19:23:06.417816+00	PU
+102	Public	Public Collection	2012-10-30 23:04:08.321883+00	PU
+103	Public	Public Collection	2012-11-01 00:31:05.29916+00	PU
+104	Public	Public Collection	2012-11-01 19:31:07.778059+00	PU
+105	Public	Public Collection	2012-11-01 21:27:26.990699+00	PU
+106	Public	Public Collection	2012-11-02 03:49:08.741935+00	PU
+107	Public	Public Collection	2012-11-02 04:20:33.40982+00	PU
+108	Pinturas raras	Muy raras	2012-11-02 04:22:19.222753+00	PR
+109	Darkies	Muy dark	2012-11-02 04:25:52.704149+00	PR
+110	Public	Public Collection	2012-11-02 04:54:56.807675+00	PU
+111	Public	Public Collection	2012-11-06 18:52:33.925446+00	PU
+112	Public	Public Collection	2012-11-06 19:01:50.551176+00	PU
+113	nombre carpeta		2012-11-14 20:36:52.729842+00	PU
+114	Public	Public Collection	2012-11-19 17:57:18.127299+00	PU
+115	Public	Public Collection	2012-11-19 20:55:14.115756+00	PU
+116	Public	Public Collection	2012-11-20 19:52:42.236028+00	PU
+117	Public	Public Collection	2012-11-20 20:12:08.015507+00	PU
+118	una	mia	2012-11-28 01:45:03.159138+00	PU
+119	una	mia	2012-11-28 01:45:41.215363+00	PU
+120	carpeta dos	otra	2012-11-28 01:46:22.51987+00	PU
+121	Public	Public Collection	2012-11-30 01:30:30.748982+00	PU
+122	NUEVA PRUEBA	NADA	2012-11-30 01:44:57.8973+00	PR
+123	MiColeccion	Imagenes	2012-11-30 01:49:21.312919+00	PU
+124	Coleccion2	Descripcion	2012-11-30 01:51:01.221468+00	PR
+125	Public	Public Collection	2012-11-30 02:44:49.672594+00	PU
+126	FAVORITOS		2012-11-30 02:46:15.730288+00	PU
+127	Public	Public Collection	2012-12-01 00:21:59.989997+00	PU
+128	nueva	asd	2012-12-01 00:22:15.822579+00	PR
+129	prueba		2012-12-01 00:23:27.409518+00	PU
+130	Public	Public Collection	2012-12-01 00:36:03.919751+00	PU
+131	Public	Public Collection	2012-12-01 00:49:51.383232+00	PU
+132	resffa		2012-12-03 04:07:22.102447+00	PU
+133	Public	Public Collection	2013-01-16 04:41:40.415726+00	PU
+\.
+
+
+--
+-- Data for Name: shapes_collection_individual; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY shapes_collection_individual (id, collection_id, individual_id, added_from_id, from_user_id, date_added) FROM stdin;
+1	4	pop:individual:38	4	9	2012-10-02 20:40:30.907679+00
+2	5	pop:individual:23	5	9	2012-10-02 21:02:33.703781+00
+15	15	pop:individual:25	15	8	2012-10-13 00:23:00.192786+00
+38	22	pop:individual:30	22	4	2012-10-18 07:34:55.19493+00
+39	22	pop:individual:13	22	4	2012-10-18 07:35:03.431843+00
+40	22	pop:individual:25	22	4	2012-10-18 07:35:42.979506+00
+41	22	pop:individual:588	22	4	2012-10-18 20:56:37.376527+00
+42	22	pop:individual:25	22	4	2012-10-18 20:57:23.794609+00
+43	22	pop:individual:30	22	4	2012-10-20 00:38:42.212287+00
+44	23	pop:individual:494	23	4	2012-10-21 20:54:05.557513+00
+45	23	pop:individual:30	23	4	2012-10-22 06:08:34.570372+00
+46	26	pop:individual:68	26	8	2012-10-22 20:27:24.907382+00
+47	26	pop:individual:106	26	8	2012-10-22 20:31:34.521605+00
+48	26	pop:individual:126	26	8	2012-10-22 20:32:05.440858+00
+49	26	pop:individual:119	26	8	2012-10-22 20:32:22.767995+00
+50	23	pop:individual:25	23	4	2012-10-22 21:45:15.10413+00
+51	32	pop:individual:121	32	4	2012-10-23 04:31:52.767118+00
+52	37	pop:individual:139	37	4	2012-10-23 05:02:34.883934+00
+53	37	pop:individual:24	37	4	2012-10-23 14:57:26.024106+00
+54	39	pop:individual:430	39	11	2012-10-24 16:25:05.068083+00
+55	37	pop:individual:110	37	4	2012-10-24 19:30:28.473431+00
+56	26	pop:individual:223	26	8	2012-10-24 21:30:03.186038+00
+57	40	pop:individual:480	40	4	2012-10-24 22:49:19.943996+00
+58	41	pop:individual:764	41	12	2012-10-25 01:40:49.571955+00
+59	42	pop:individual:741	42	12	2012-10-25 01:41:10.645634+00
+60	41	pop:individual:39	41	12	2012-10-25 01:42:09.246672+00
+61	37	pop:individual:984	37	4	2012-10-25 06:18:21.59048+00
+62	37	pop:individual:1166	37	4	2012-10-25 06:29:47.670846+00
+63	45	pop:individual:607	45	14	2012-10-25 16:09:37.386085+00
+64	45	pop:individual:375	45	14	2012-10-25 16:09:43.479331+00
+65	45	pop:individual:122	45	14	2012-10-25 16:09:46.089479+00
+66	45	pop:individual:225	45	14	2012-10-25 16:09:55.820901+00
+67	45	pop:individual:162	45	14	2012-10-25 16:09:59.501868+00
+68	45	pop:individual:703	45	14	2012-10-25 16:10:11.139021+00
+69	45	pop:individual:627	45	14	2012-10-25 16:10:21.779657+00
+70	45	pop:individual:687	45	14	2012-10-25 16:10:24.496654+00
+71	47	pop:individual:7	47	15	2012-10-25 16:13:11.472998+00
+72	47	pop:individual:30	47	15	2012-10-25 16:13:27.903354+00
+73	47	pop:individual:376	47	15	2012-10-25 16:13:38.42771+00
+74	47	pop:individual:291	47	15	2012-10-25 16:13:54.003532+00
+75	47	pop:individual:729	47	15	2012-10-25 16:14:06.64292+00
+76	47	pop:individual:400	47	15	2012-10-25 16:14:14.573838+00
+77	47	pop:individual:686	47	15	2012-10-25 16:14:21.987758+00
+78	47	pop:individual:700	47	15	2012-10-25 16:14:26.497901+00
+79	47	pop:individual:165	47	15	2012-10-25 16:14:35.965265+00
+80	47	pop:individual:281	47	15	2012-10-25 16:14:47.223161+00
+81	47	pop:individual:740	47	15	2012-10-25 16:15:22.348465+00
+82	47	pop:individual:545	47	15	2012-10-25 16:15:30.294007+00
+83	47	pop:individual:744	47	15	2012-10-25 16:15:34.963486+00
+84	47	pop:individual:738	47	15	2012-10-25 16:15:41.665999+00
+85	47	pop:individual:233	47	15	2012-10-25 16:15:45.60416+00
+86	47	pop:individual:122	47	15	2012-10-25 16:16:03.323248+00
+87	47	pop:individual:727	47	15	2012-10-25 16:16:11.478719+00
+88	47	pop:individual:747	47	15	2012-10-25 16:16:14.460884+00
+89	51	pop:individual:817	51	19	2012-10-25 17:09:39.054572+00
+90	51	pop:individual:973	51	19	2012-10-25 17:11:10.178604+00
+91	51	pop:individual:931	51	19	2012-10-25 17:11:17.739273+00
+92	51	pop:individual:891	51	19	2012-10-25 17:11:48.661873+00
+93	51	pop:individual:995	51	19	2012-10-25 17:20:04.91279+00
+94	51	pop:individual:1007	51	19	2012-10-25 17:20:07.646977+00
+95	51	pop:individual:982	51	19	2012-10-25 17:21:56.490372+00
+96	51	pop:individual:1015	51	19	2012-10-25 17:23:38.136049+00
+97	51	pop:individual:949	51	19	2012-10-25 17:23:42.261336+00
+98	51	pop:individual:875	51	19	2012-10-25 17:24:08.410043+00
+99	51	pop:individual:931	51	19	2012-10-25 17:49:21.889257+00
+100	51	pop:individual:888	51	19	2012-10-25 17:49:33.285253+00
+101	51	pop:individual:966	51	19	2012-10-25 17:49:36.150808+00
+102	51	pop:individual:982	51	19	2012-10-25 17:49:45.614965+00
+103	37	pop:individual:1050	37	4	2012-10-25 17:53:42.552382+00
+104	37	pop:individual:870	37	4	2012-10-25 17:53:49.990593+00
+105	54	pop:individual:36	54	22	2012-10-25 17:59:49.53699+00
+106	37	pop:individual:1085	37	4	2012-10-25 18:05:04.17481+00
+107	37	pop:individual:1143	37	4	2012-10-25 18:06:24.798704+00
+108	37	pop:individual:974	37	4	2012-10-25 18:09:01.667037+00
+109	37	pop:individual:745	37	4	2012-10-25 18:09:12.771501+00
+110	37	pop:individual:836	37	4	2012-10-25 18:09:53.073482+00
+111	37	pop:individual:1204	37	4	2012-10-25 18:10:16.70524+00
+112	37	pop:individual:1115	37	4	2012-10-25 18:14:17.658692+00
+113	37	pop:individual:1115	37	4	2012-10-25 18:14:37.080981+00
+114	37	pop:individual:1019	37	4	2012-10-25 19:56:08.363535+00
+115	58	pop:individual:1419	58	25	2012-10-25 20:02:10.910208+00
+116	59	pop:individual:1239	59	26	2012-10-25 20:24:56.568236+00
+117	59	pop:individual:1543	59	26	2012-10-25 20:24:59.362031+00
+118	59	pop:individual:1556	59	26	2012-10-25 20:25:01.708038+00
+119	59	pop:individual:1612	59	26	2012-10-25 20:25:10.610081+00
+120	59	pop:individual:1425	59	26	2012-10-25 20:25:13.752449+00
+121	59	pop:individual:1142	59	26	2012-10-25 20:25:57.311224+00
+122	59	pop:individual:1038	59	26	2012-10-25 20:26:00.019843+00
+123	40	pop:individual:1537	40	4	2012-10-25 21:17:09.316699+00
+124	37	pop:individual:1530	37	4	2012-10-25 21:56:44.603017+00
+125	37	pop:individual:1860	37	4	2012-10-25 22:04:38.232075+00
+126	37	pop:individual:1882	37	4	2012-10-25 22:16:08.678296+00
+127	64	pop:individual:1366	64	31	2012-10-25 22:27:14.571349+00
+128	64	pop:individual:1807	64	31	2012-10-25 22:28:03.344233+00
+129	65	pop:individual:1860	65	32	2012-10-25 22:46:11.328785+00
+130	65	pop:individual:2027	65	32	2012-10-25 22:47:08.533574+00
+131	65	pop:individual:1928	65	32	2012-10-25 22:47:54.676041+00
+132	65	pop:individual:2031	65	32	2012-10-25 22:48:34.699864+00
+133	65	pop:individual:2003	65	32	2012-10-25 22:49:09.93338+00
+134	65	pop:individual:1978	65	32	2012-10-25 22:51:59.599845+00
+135	42	pop:individual:2198	42	12	2012-10-25 23:13:02.437813+00
+136	42	pop:individual:2161	42	12	2012-10-25 23:14:56.51012+00
+137	42	pop:individual:1844	42	12	2012-10-25 23:16:11.749939+00
+138	61	pop:individual:2446	61	28	2012-10-25 23:36:38.723597+00
+139	61	pop:individual:2515	61	28	2012-10-25 23:36:56.403012+00
+140	15	pop:individual:2537	15	8	2012-10-25 23:53:23.925703+00
+141	15	pop:individual:2572	15	8	2012-10-25 23:53:30.963447+00
+142	15	pop:individual:2647	15	8	2012-10-26 00:03:36.914223+00
+143	15	pop:individual:2645	15	8	2012-10-26 00:03:55.379995+00
+144	15	pop:individual:1667	15	8	2012-10-26 00:03:59.107807+00
+145	15	pop:individual:2724	15	8	2012-10-26 00:04:07.311936+00
+146	37	pop:individual:2699	37	4	2012-10-26 01:21:17.025786+00
+147	37	pop:individual:2557	37	4	2012-10-26 01:21:25.489824+00
+148	40	pop:individual:2787	40	4	2012-10-26 01:26:59.473918+00
+149	40	pop:individual:1383	40	4	2012-10-26 01:27:29.945934+00
+150	40	pop:individual:2670	40	4	2012-10-26 01:28:00.508707+00
+151	40	pop:individual:2466	40	4	2012-10-26 01:28:26.298425+00
+152	40	pop:individual:948	40	4	2012-10-26 01:29:15.499209+00
+153	40	pop:individual:2785	40	4	2012-10-26 01:29:31.661819+00
+154	40	pop:individual:2861	40	4	2012-10-26 01:31:04.348689+00
+155	40	pop:individual:1204	40	4	2012-10-26 01:31:32.644809+00
+156	40	pop:individual:2665	40	4	2012-10-26 01:32:29.908191+00
+157	40	pop:individual:2665	40	4	2012-10-26 01:33:41.467992+00
+158	15	pop:individual:2569	15	8	2012-10-26 02:34:28.319187+00
+159	15	pop:individual:2064	15	8	2012-10-26 02:34:34.830346+00
+160	15	pop:individual:2007	15	8	2012-10-26 02:34:59.044177+00
+161	15	pop:individual:2891	15	8	2012-10-26 02:35:16.202859+00
+162	15	pop:individual:2445	15	8	2012-10-26 02:36:09.119238+00
+163	15	pop:individual:2835	15	8	2012-10-26 02:36:18.006203+00
+164	15	pop:individual:1537	15	8	2012-10-26 02:36:36.104191+00
+165	15	pop:individual:2935	15	8	2012-10-26 02:37:33.564649+00
+166	15	pop:individual:2513	15	8	2012-10-26 02:38:16.933962+00
+167	15	pop:individual:2658	15	8	2012-10-26 02:39:19.387619+00
+168	15	pop:individual:2608	15	8	2012-10-26 02:39:53.334169+00
+169	15	pop:individual:1303	15	8	2012-10-26 02:40:21.068796+00
+170	15	pop:individual:1143	15	8	2012-10-26 02:40:47.605623+00
+171	15	pop:individual:2975	15	8	2012-10-26 02:40:56.917636+00
+172	39	pop:individual:2699	39	11	2012-10-26 05:03:31.953414+00
+173	39	pop:individual:2785	39	11	2012-10-26 05:04:15.135546+00
+174	39	pop:individual:2814	39	11	2012-10-26 05:04:57.404341+00
+175	39	pop:individual:2727	39	11	2012-10-26 05:05:24.33871+00
+176	39	pop:individual:1535	39	11	2012-10-26 05:06:14.817751+00
+177	39	pop:individual:2700	39	11	2012-10-26 05:07:08.523263+00
+178	39	pop:individual:3158	39	11	2012-10-26 05:08:10.666826+00
+179	39	pop:individual:2804	39	11	2012-10-26 05:09:39.998759+00
+180	39	pop:individual:3084	39	11	2012-10-26 05:10:31.611296+00
+181	39	pop:individual:2803	39	11	2012-10-26 05:11:16.513513+00
+182	39	pop:individual:2804	39	11	2012-10-26 05:11:59.910314+00
+183	39	pop:individual:2745	39	11	2012-10-26 05:12:33.424474+00
+184	39	pop:individual:2412	39	11	2012-10-26 05:14:08.484708+00
+185	39	pop:individual:2486	39	11	2012-10-26 05:14:57.910455+00
+186	39	pop:individual:1745	39	11	2012-10-26 05:15:32.811295+00
+187	67	pop:individual:2265	67	34	2012-10-26 05:48:11.889854+00
+188	67	pop:individual:1143	67	34	2012-10-26 05:48:57.130406+00
+189	68	pop:individual:1143	68	34	2012-10-26 05:49:31.389786+00
+190	70	pop:individual:3413	70	36	2012-10-26 08:23:30.94768+00
+191	70	pop:individual:3247	70	36	2012-10-26 08:23:53.171219+00
+192	70	pop:individual:3256	70	36	2012-10-26 08:24:04.454259+00
+193	70	pop:individual:689	70	36	2012-10-26 08:24:18.169471+00
+194	37	pop:individual:2414	37	4	2012-10-26 08:57:50.007829+00
+195	37	pop:individual:3247	37	4	2012-10-26 09:08:25.709164+00
+196	37	pop:individual:3493	37	4	2012-10-26 09:09:28.111947+00
+197	15	pop:individual:3158	15	8	2012-10-26 16:02:11.408029+00
+198	15	pop:individual:3034	15	8	2012-10-26 16:02:42.112256+00
+199	15	pop:individual:3683	15	8	2012-10-26 16:03:00.823332+00
+200	15	pop:individual:3664	15	8	2012-10-26 16:04:08.670943+00
+201	15	pop:individual:3729	15	8	2012-10-26 16:04:17.399511+00
+202	15	pop:individual:3779	15	8	2012-10-26 16:06:14.499916+00
+203	15	pop:individual:1888	15	8	2012-10-26 16:07:19.903854+00
+204	15	pop:individual:3781	15	8	2012-10-26 16:07:56.444831+00
+205	15	pop:individual:3779	15	8	2012-10-26 16:08:25.417837+00
+206	15	pop:individual:3558	15	8	2012-10-26 16:08:56.541882+00
+207	15	pop:individual:3821	15	8	2012-10-26 16:09:19.04695+00
+208	15	pop:individual:3586	15	8	2012-10-26 16:10:01.827048+00
+209	15	pop:individual:3860	15	8	2012-10-26 16:10:12.775904+00
+210	15	pop:individual:3793	15	8	2012-10-26 16:10:16.796196+00
+211	15	pop:individual:3860	15	8	2012-10-26 16:11:09.004185+00
+212	15	pop:individual:3729	15	8	2012-10-26 16:11:13.220386+00
+213	15	pop:individual:3328	15	8	2012-10-26 16:12:23.216464+00
+214	15	pop:individual:3782	15	8	2012-10-26 16:14:38.250234+00
+215	51	pop:individual:3560	51	19	2012-10-26 17:12:38.997041+00
+216	51	pop:individual:3778	51	19	2012-10-26 17:12:41.626612+00
+217	51	pop:individual:3947	51	19	2012-10-26 17:12:44.369194+00
+218	51	pop:individual:1303	51	19	2012-10-26 17:12:51.69693+00
+219	51	pop:individual:3617	51	19	2012-10-26 17:13:14.119964+00
+220	51	pop:individual:3527	51	19	2012-10-26 17:13:16.721706+00
+221	51	pop:individual:2747	51	19	2012-10-26 17:13:18.767774+00
+222	51	pop:individual:3906	51	19	2012-10-26 17:13:24.565066+00
+223	51	pop:individual:3931	51	19	2012-10-26 17:13:40.240695+00
+224	51	pop:individual:3884	51	19	2012-10-26 17:13:41.622287+00
+225	51	pop:individual:3920	51	19	2012-10-26 17:13:44.220897+00
+226	51	pop:individual:3850	51	19	2012-10-26 17:13:46.855213+00
+227	51	pop:individual:1888	51	19	2012-10-26 17:13:57.550338+00
+228	51	pop:individual:2681	51	19	2012-10-26 17:14:01.225726+00
+229	51	pop:individual:3654	51	19	2012-10-26 17:14:21.578073+00
+230	51	pop:individual:3636	51	19	2012-10-26 17:14:24.288904+00
+231	51	pop:individual:3055	51	19	2012-10-26 17:14:27.638885+00
+232	51	pop:individual:3857	51	19	2012-10-26 17:14:44.619165+00
+233	51	pop:individual:3924	51	19	2012-10-26 17:14:51.349718+00
+234	51	pop:individual:3683	51	19	2012-10-26 17:14:53.260278+00
+235	51	pop:individual:3582	51	19	2012-10-26 17:14:56.478933+00
+236	51	pop:individual:3887	51	19	2012-10-26 17:15:05.506616+00
+237	51	pop:individual:2552	51	19	2012-10-26 17:21:37.666801+00
+238	51	pop:individual:3433	51	19	2012-10-26 17:21:57.346683+00
+239	51	pop:individual:3292	51	19	2012-10-26 17:22:01.344324+00
+240	51	pop:individual:3416	51	19	2012-10-26 17:22:02.080878+00
+241	51	pop:individual:3438	51	19	2012-10-26 17:22:26.854421+00
+242	51	pop:individual:3877	51	19	2012-10-26 17:22:29.532244+00
+243	51	pop:individual:3356	51	19	2012-10-26 17:22:32.62867+00
+244	51	pop:individual:3572	51	19	2012-10-26 17:22:35.004578+00
+245	51	pop:individual:3668	51	19	2012-10-26 17:22:37.894674+00
+246	51	pop:individual:3923	51	19	2012-10-26 17:22:42.606485+00
+247	51	pop:individual:3548	51	19	2012-10-26 17:23:02.539907+00
+248	51	pop:individual:3895	51	19	2012-10-26 17:23:05.297614+00
+249	51	pop:individual:2748	51	19	2012-10-26 17:23:39.253081+00
+250	51	pop:individual:3905	51	19	2012-10-26 17:23:45.153666+00
+251	51	pop:individual:3972	51	19	2012-10-26 17:23:48.134759+00
+252	51	pop:individual:3566	51	19	2012-10-26 17:24:12.023373+00
+253	51	pop:individual:3976	51	19	2012-10-26 17:24:14.893428+00
+254	51	pop:individual:3574	51	19	2012-10-26 17:24:18.100006+00
+255	51	pop:individual:3967	51	19	2012-10-26 17:24:29.424447+00
+256	51	pop:individual:3878	51	19	2012-10-26 17:24:31.861819+00
+257	51	pop:individual:3849	51	19	2012-10-26 17:24:34.370589+00
+258	51	pop:individual:3617	51	19	2012-10-26 17:24:37.092478+00
+259	51	pop:individual:1862	51	19	2012-10-26 17:24:39.980727+00
+260	51	pop:individual:3962	51	19	2012-10-26 17:24:43.220604+00
+261	51	pop:individual:3950	51	19	2012-10-26 17:25:10.462354+00
+262	51	pop:individual:3813	51	19	2012-10-26 17:25:12.789392+00
+263	51	pop:individual:3861	51	19	2012-10-26 17:25:15.062926+00
+264	51	pop:individual:1804	51	19	2012-10-26 17:25:19.078525+00
+265	51	pop:individual:3729	51	19	2012-10-26 17:25:32.339723+00
+266	51	pop:individual:3872	51	19	2012-10-26 17:25:39.020835+00
+267	51	pop:individual:3542	51	19	2012-10-26 17:25:41.482523+00
+268	51	pop:individual:3377	51	19	2012-10-26 17:25:50.372989+00
+269	51	pop:individual:3346	51	19	2012-10-26 17:25:52.624551+00
+270	51	pop:individual:3446	51	19	2012-10-26 17:25:55.021252+00
+271	51	pop:individual:3867	51	19	2012-10-26 17:26:04.690039+00
+272	51	pop:individual:3055	51	19	2012-10-26 17:26:08.190773+00
+273	51	pop:individual:3903	51	19	2012-10-26 17:26:12.28337+00
+274	51	pop:individual:3718	51	19	2012-10-26 17:26:26.64289+00
+275	51	pop:individual:3890	51	19	2012-10-26 17:26:28.997807+00
+276	51	pop:individual:3979	51	19	2012-10-26 17:26:31.498362+00
+277	51	pop:individual:3433	51	19	2012-10-26 17:26:44.585841+00
+278	51	pop:individual:3055	51	19	2012-10-26 17:26:46.83721+00
+279	51	pop:individual:2670	51	19	2012-10-26 17:26:53.547819+00
+280	51	pop:individual:3960	51	19	2012-10-26 17:35:34.475688+00
+281	51	pop:individual:3488	51	19	2012-10-26 17:35:36.797483+00
+282	51	pop:individual:3772	51	19	2012-10-26 17:36:10.878318+00
+283	51	pop:individual:2509	51	19	2012-10-26 17:36:14.611841+00
+284	51	pop:individual:3617	51	19	2012-10-26 17:36:17.799951+00
+285	51	pop:individual:3982	51	19	2012-10-26 17:36:21.263959+00
+286	51	pop:individual:3875	51	19	2012-10-26 17:36:27.153077+00
+287	51	pop:individual:2748	51	19	2012-10-26 17:36:45.837235+00
+288	51	pop:individual:3782	51	19	2012-10-26 17:36:52.663596+00
+289	51	pop:individual:3916	51	19	2012-10-26 17:36:52.710409+00
+290	51	pop:individual:3855	51	19	2012-10-26 17:36:54.972538+00
+291	51	pop:individual:3472	51	19	2012-10-26 17:37:16.77905+00
+292	51	pop:individual:3081	51	19	2012-10-26 17:37:20.46046+00
+293	51	pop:individual:3729	51	19	2012-10-26 17:37:23.76398+00
+294	51	pop:individual:3652	51	19	2012-10-26 17:37:51.55218+00
+295	51	pop:individual:3716	51	19	2012-10-26 17:37:54.769972+00
+296	51	pop:individual:3683	51	19	2012-10-26 17:37:59.058205+00
+297	51	pop:individual:3878	51	19	2012-10-26 17:38:19.838513+00
+298	51	pop:individual:1917	51	19	2012-10-26 17:38:27.263868+00
+299	51	pop:individual:3918	51	19	2012-10-26 17:38:30.311923+00
+300	51	pop:individual:3860	51	19	2012-10-26 17:38:48.594345+00
+301	51	pop:individual:3891	51	19	2012-10-26 17:38:51.085724+00
+302	51	pop:individual:3968	51	19	2012-10-26 17:38:54.315891+00
+303	51	pop:individual:3556	51	19	2012-10-26 17:39:11.762362+00
+304	51	pop:individual:3979	51	19	2012-10-26 17:39:14.05378+00
+305	51	pop:individual:3762	51	19	2012-10-26 17:39:17.26933+00
+306	51	pop:individual:3803	51	19	2012-10-26 17:39:19.813428+00
+307	51	pop:individual:3923	51	19	2012-10-26 17:39:24.316295+00
+308	51	pop:individual:3543	51	19	2012-10-26 17:39:52.61813+00
+309	51	pop:individual:3641	51	19	2012-10-26 17:39:55.191984+00
+310	51	pop:individual:3894	51	19	2012-10-26 17:39:58.271015+00
+311	51	pop:individual:3739	51	19	2012-10-26 17:40:03.074817+00
+312	51	pop:individual:3890	51	19	2012-10-26 17:40:05.389869+00
+313	51	pop:individual:3989	51	19	2012-10-26 17:40:24.472185+00
+314	51	pop:individual:2627	51	19	2012-10-26 17:40:26.549839+00
+315	51	pop:individual:3946	51	19	2012-10-26 17:40:28.81547+00
+316	51	pop:individual:1392	51	19	2012-10-26 17:40:48.523891+00
+317	51	pop:individual:3553	51	19	2012-10-26 17:41:12.949895+00
+318	51	pop:individual:3953	51	19	2012-10-26 17:41:33.988009+00
+319	51	pop:individual:3304	51	19	2012-10-26 17:41:34.309368+00
+320	51	pop:individual:3727	51	19	2012-10-26 17:42:03.822918+00
+321	51	pop:individual:3304	51	19	2012-10-26 17:42:11.397858+00
+322	67	pop:individual:3055	67	34	2012-10-26 20:02:21.309639+00
+323	67	pop:individual:3928	67	34	2012-10-26 20:05:31.568313+00
+324	67	pop:individual:3782	67	34	2012-10-26 20:06:21.856126+00
+325	67	pop:individual:4006	67	34	2012-10-26 20:06:43.714549+00
+326	37	pop:individual:4042	37	4	2012-10-26 21:09:54.415534+00
+327	37	pop:individual:3795	37	4	2012-10-26 21:10:04.410518+00
+328	37	pop:individual:3140	37	4	2012-10-26 21:14:19.102047+00
+329	37	pop:individual:3933	37	4	2012-10-26 21:14:29.151924+00
+330	37	pop:individual:4017	37	4	2012-10-26 21:15:36.827611+00
+331	37	pop:individual:4123	37	4	2012-10-26 21:26:17.439803+00
+332	37	pop:individual:4065	37	4	2012-10-26 21:33:36.553198+00
+333	71	pop:individual:4115	71	6	2012-10-26 21:48:31.191927+00
+334	72	pop:individual:3909	72	6	2012-10-26 21:49:37.926768+00
+335	72	pop:individual:3480	72	6	2012-10-26 21:49:47.043122+00
+336	72	pop:individual:4115	72	6	2012-10-26 21:50:28.931881+00
+337	72	pop:individual:1882	72	6	2012-10-26 21:51:13.334032+00
+338	72	pop:individual:3930	72	6	2012-10-26 21:52:57.190147+00
+339	72	pop:individual:2727	72	6	2012-10-26 21:53:08.830581+00
+340	72	pop:individual:4164	72	6	2012-10-26 21:53:16.035848+00
+341	72	pop:individual:4289	72	6	2012-10-26 21:54:36.690913+00
+342	72	pop:individual:4228	72	6	2012-10-26 21:55:41.904509+00
+343	72	pop:individual:3695	72	6	2012-10-26 21:57:07.45598+00
+344	72	pop:individual:4202	72	6	2012-10-26 21:57:22.712213+00
+345	72	pop:individual:3744	72	6	2012-10-26 21:57:41.744213+00
+346	72	pop:individual:4227	72	6	2012-10-26 21:58:04.40246+00
+347	72	pop:individual:3658	72	6	2012-10-26 21:58:17.134877+00
+348	72	pop:individual:4141	72	6	2012-10-26 21:58:40.606393+00
+349	72	pop:individual:3535	72	6	2012-10-26 22:02:31.205124+00
+350	72	pop:individual:4156	72	6	2012-10-26 22:02:35.628809+00
+351	72	pop:individual:4067	72	6	2012-10-26 22:02:41.845046+00
+352	72	pop:individual:3140	72	6	2012-10-26 22:03:22.343901+00
+353	72	pop:individual:3820	72	6	2012-10-26 22:03:37.332466+00
+354	72	pop:individual:3034	72	6	2012-10-26 22:06:37.316914+00
+355	72	pop:individual:25	72	6	2012-10-26 22:07:03.213352+00
+356	72	pop:individual:4006	72	6	2012-10-26 22:08:25.033531+00
+357	71	pop:individual:4244	71	6	2012-10-26 22:09:31.147984+00
+358	71	pop:individual:1392	71	6	2012-10-26 22:09:39.954643+00
+359	71	pop:individual:3404	71	6	2012-10-26 22:10:07.741252+00
+360	71	pop:individual:3919	71	6	2012-10-26 22:20:53.614849+00
+361	71	pop:individual:3140	71	6	2012-10-26 22:20:55.822536+00
+362	71	pop:individual:4042	71	6	2012-10-26 22:22:35.124882+00
+363	71	pop:individual:4031	71	6	2012-10-26 22:24:05.35268+00
+364	71	pop:individual:4218	71	6	2012-10-26 22:24:55.48214+00
+365	73	pop:individual:4401	73	37	2012-10-26 22:34:00.244289+00
+366	73	pop:individual:3834	73	37	2012-10-26 22:34:46.809916+00
+367	73	pop:individual:4358	73	37	2012-10-26 22:34:57.113829+00
+368	72	pop:individual:3614	72	6	2012-10-26 22:35:03.266393+00
+369	73	pop:individual:4358	73	37	2012-10-26 22:35:22.194853+00
+370	73	pop:individual:3140	73	37	2012-10-26 22:35:44.954613+00
+371	73	pop:individual:3736	73	37	2012-10-26 22:36:00.30713+00
+372	72	pop:individual:2628	72	6	2012-10-26 22:40:01.790932+00
+373	72	pop:individual:4403	72	6	2012-10-26 22:40:07.494207+00
+374	72	pop:individual:4067	72	6	2012-10-26 22:40:23.094716+00
+375	72	pop:individual:4408	72	6	2012-10-26 22:40:29.073049+00
+376	72	pop:individual:1804	72	6	2012-10-26 22:42:14.933849+00
+377	72	pop:individual:3618	72	6	2012-10-26 22:44:23.938464+00
+378	71	pop:individual:3979	71	6	2012-10-26 22:46:48.114949+00
+379	73	pop:individual:3821	73	37	2012-10-26 22:48:51.716807+00
+380	71	pop:individual:4218	71	6	2012-10-26 22:49:07.854034+00
+381	73	pop:individual:3595	73	37	2012-10-26 22:49:10.173625+00
+382	73	pop:individual:4063	73	37	2012-10-26 22:49:27.547058+00
+383	73	pop:individual:3782	73	37	2012-10-26 22:49:47.101479+00
+384	73	pop:individual:4267	73	37	2012-10-26 22:50:04.182818+00
+385	73	pop:individual:1639	73	37	2012-10-26 22:50:29.651971+00
+386	71	pop:individual:4284	71	6	2012-10-26 22:51:55.697903+00
+387	71	pop:individual:4309	71	6	2012-10-26 22:52:27.83516+00
+388	71	pop:individual:4450	71	6	2012-10-26 22:54:24.725563+00
+389	71	pop:individual:4309	71	6	2012-10-26 22:55:06.126788+00
+390	71	pop:individual:3821	71	6	2012-10-26 22:56:35.152679+00
+391	71	pop:individual:4333	71	6	2012-10-26 22:57:13.096446+00
+392	37	pop:individual:4551	37	4	2012-10-26 22:58:00.193753+00
+393	71	pop:individual:4502	71	6	2012-10-26 22:59:14.367945+00
+394	71	pop:individual:4605	71	6	2012-10-26 22:59:39.710409+00
+395	40	pop:individual:1392	40	4	2012-10-27 01:05:44.506483+00
+396	74	pop:individual:3247	74	38	2012-10-28 04:02:33.327204+00
+397	76	pop:individual:4353	76	39	2012-10-29 01:28:52.462883+00
+398	51	pop:individual:4925	51	19	2012-10-29 17:22:47.989143+00
+399	51	pop:individual:5088	51	19	2012-10-29 17:23:38.251509+00
+400	51	pop:individual:4507	51	19	2012-10-29 17:24:04.153149+00
+401	51	pop:individual:4702	51	19	2012-10-29 17:24:05.185698+00
+402	51	pop:individual:4753	51	19	2012-10-29 17:24:05.828482+00
+403	51	pop:individual:4996	51	19	2012-10-29 17:24:06.077329+00
+404	51	pop:individual:4571	51	19	2012-10-29 17:24:19.213986+00
+405	51	pop:individual:4571	51	19	2012-10-29 17:24:21.997504+00
+406	51	pop:individual:4822	51	19	2012-10-29 17:24:22.021276+00
+407	51	pop:individual:4454	51	19	2012-10-29 17:24:34.123082+00
+408	80	pop:individual:5008	80	43	2012-10-29 17:24:35.141958+00
+409	51	pop:individual:4737	51	19	2012-10-29 17:24:50.285791+00
+410	51	pop:individual:5143	51	19	2012-10-29 17:24:54.992696+00
+411	51	pop:individual:5013	51	19	2012-10-29 17:24:59.543639+00
+412	78	pop:individual:4063	78	41	2012-10-29 17:25:34.295083+00
+413	80	pop:individual:5243	80	43	2012-10-29 17:25:37.182297+00
+414	52	pop:individual:5130	52	20	2012-10-29 17:25:42.303581+00
+415	51	pop:individual:5013	51	19	2012-10-29 17:25:44.519938+00
+416	86	pop:individual:5173	86	49	2012-10-29 17:25:44.763619+00
+417	88	pop:individual:4767	88	51	2012-10-29 17:25:44.789662+00
+418	80	pop:individual:3076	80	43	2012-10-29 17:25:46.952642+00
+419	78	pop:individual:5080	78	41	2012-10-29 17:25:47.054194+00
+420	83	pop:individual:4791	83	46	2012-10-29 17:25:50.687085+00
+421	87	pop:individual:5177	87	50	2012-10-29 17:25:52.058856+00
+422	81	pop:individual:4558	81	44	2012-10-29 17:25:52.674066+00
+423	80	pop:individual:4733	80	43	2012-10-29 17:26:01.851897+00
+424	76	pop:individual:5267	76	39	2012-10-29 17:26:03.102982+00
+425	83	pop:individual:4739	83	46	2012-10-29 17:26:03.810461+00
+426	92	pop:individual:4514	92	55	2012-10-29 17:26:07.58474+00
+427	81	pop:individual:5267	81	44	2012-10-29 17:26:13.699716+00
+428	76	pop:individual:5285	76	39	2012-10-29 17:26:16.647243+00
+429	88	pop:individual:5298	88	51	2012-10-29 17:26:18.331511+00
+430	82	pop:individual:5265	82	45	2012-10-29 17:26:20.303969+00
+431	77	pop:individual:5243	77	40	2012-10-29 17:26:20.835639+00
+432	84	pop:individual:4218	84	47	2012-10-29 17:26:22.953041+00
+433	76	pop:individual:5350	76	39	2012-10-29 17:26:25.59097+00
+434	51	pop:individual:4514	51	19	2012-10-29 17:26:28.513129+00
+435	92	pop:individual:2842	92	55	2012-10-29 17:26:28.652243+00
+436	77	pop:individual:5192	77	40	2012-10-29 17:26:28.858248+00
+437	88	pop:individual:4746	88	51	2012-10-29 17:26:29.243344+00
+438	82	pop:individual:5131	82	45	2012-10-29 17:26:30.361448+00
+439	83	pop:individual:5312	83	46	2012-10-29 17:26:31.438419+00
+440	86	pop:individual:4958	86	49	2012-10-29 17:26:31.561134+00
+441	52	pop:individual:4924	52	20	2012-10-29 17:26:32.063596+00
+442	76	pop:individual:2670	76	39	2012-10-29 17:26:32.141208+00
+443	51	pop:individual:2803	51	19	2012-10-29 17:26:32.642688+00
+444	51	pop:individual:5326	51	19	2012-10-29 17:26:33.373791+00
+445	52	pop:individual:5359	52	20	2012-10-29 17:26:34.062357+00
+446	52	pop:individual:5352	52	20	2012-10-29 17:26:36.314001+00
+447	51	pop:individual:5263	51	19	2012-10-29 17:26:36.350486+00
+448	88	pop:individual:4755	88	51	2012-10-29 17:26:37.433343+00
+449	89	pop:individual:5247	89	52	2012-10-29 17:26:37.80479+00
+450	52	pop:individual:5106	52	20	2012-10-29 17:26:38.385322+00
+451	51	pop:individual:4799	51	19	2012-10-29 17:26:39.034385+00
+452	52	pop:individual:4783	52	20	2012-10-29 17:26:40.376324+00
+453	51	pop:individual:5278	51	19	2012-10-29 17:26:41.471358+00
+454	82	pop:individual:3748	82	45	2012-10-29 17:26:46.628031+00
+455	93	pop:individual:3743	93	56	2012-10-29 17:26:47.020846+00
+456	88	pop:individual:5389	88	51	2012-10-29 17:26:47.625068+00
+457	85	pop:individual:5190	85	48	2012-10-29 17:26:47.649454+00
+458	84	pop:individual:4755	84	47	2012-10-29 17:26:49.092549+00
+459	76	pop:individual:5277	76	39	2012-10-29 17:26:50.352565+00
+460	88	pop:individual:5141	88	51	2012-10-29 17:26:52.878354+00
+461	94	pop:individual:5353	94	57	2012-10-29 17:26:54.956047+00
+462	76	pop:individual:5408	76	39	2012-10-29 17:26:58.173735+00
+463	91	pop:individual:4788	91	54	2012-10-29 17:26:58.199162+00
+464	88	pop:individual:5133	88	51	2012-10-29 17:27:02.097719+00
+465	81	pop:individual:5378	81	44	2012-10-29 17:27:03.272231+00
+466	90	pop:individual:5451	90	53	2012-10-29 17:27:03.316682+00
+467	51	pop:individual:5237	51	19	2012-10-29 17:27:11.051961+00
+468	94	pop:individual:5405	94	57	2012-10-29 17:27:13.560607+00
+469	51	pop:individual:5376	51	19	2012-10-29 17:27:14.220039+00
+470	87	pop:individual:2509	87	50	2012-10-29 17:27:14.270332+00
+471	51	pop:individual:5067	51	19	2012-10-29 17:27:14.339318+00
+472	51	pop:individual:4906	51	19	2012-10-29 17:27:15.26231+00
+473	76	pop:individual:4788	76	39	2012-10-29 17:27:15.415884+00
+474	86	pop:individual:5410	86	49	2012-10-29 17:27:16.027984+00
+475	51	pop:individual:5411	51	19	2012-10-29 17:27:16.18876+00
+476	87	pop:individual:5166	87	50	2012-10-29 17:27:18.847958+00
+477	84	pop:individual:4526	84	47	2012-10-29 17:27:20.008171+00
+478	90	pop:individual:5464	90	53	2012-10-29 17:27:21.563843+00
+479	93	pop:individual:3743	93	56	2012-10-29 17:27:23.784767+00
+480	86	pop:individual:5256	86	49	2012-10-29 17:27:27.757235+00
+481	87	pop:individual:5434	87	50	2012-10-29 17:27:28.841164+00
+482	88	pop:individual:5165	88	51	2012-10-29 17:27:31.931882+00
+483	81	pop:individual:5409	81	44	2012-10-29 17:27:33.084787+00
+484	87	pop:individual:5169	87	50	2012-10-29 17:27:33.330317+00
+485	96	pop:individual:5168	96	59	2012-10-29 17:27:39.286655+00
+486	89	pop:individual:4283	89	52	2012-10-29 17:27:39.473506+00
+487	84	pop:individual:4759	84	47	2012-10-29 17:27:40.58385+00
+488	88	pop:individual:5507	88	51	2012-10-29 17:27:41.703025+00
+489	87	pop:individual:5434	87	50	2012-10-29 17:27:42.39946+00
+490	81	pop:individual:5495	81	44	2012-10-29 17:27:42.490063+00
+491	89	pop:individual:5509	89	52	2012-10-29 17:27:44.1394+00
+492	88	pop:individual:5195	88	51	2012-10-29 17:27:45.078178+00
+493	96	pop:individual:4434	96	59	2012-10-29 17:27:46.00505+00
+494	89	pop:individual:5520	89	52	2012-10-29 17:27:47.720732+00
+495	88	pop:individual:5195	88	51	2012-10-29 17:27:47.960386+00
+496	87	pop:individual:5542	87	50	2012-10-29 17:27:48.934881+00
+497	88	pop:individual:5195	88	51	2012-10-29 17:27:51.627894+00
+498	92	pop:individual:5263	92	55	2012-10-29 17:27:52.738342+00
+499	87	pop:individual:5542	87	50	2012-10-29 17:27:52.905221+00
+500	88	pop:individual:5494	88	51	2012-10-29 17:27:55.45104+00
+501	96	pop:individual:5168	96	59	2012-10-29 17:27:59.732083+00
+502	88	pop:individual:5517	88	51	2012-10-29 17:28:01.760824+00
+503	88	pop:individual:5482	88	51	2012-10-29 17:28:05.43669+00
+504	95	pop:individual:5467	95	58	2012-10-29 17:28:06.565489+00
+505	51	pop:individual:5506	51	19	2012-10-29 17:28:09.232359+00
+506	88	pop:individual:5490	88	51	2012-10-29 17:28:09.445194+00
+507	96	pop:individual:5458	96	59	2012-10-29 17:28:09.483031+00
+508	51	pop:individual:5393	51	19	2012-10-29 17:28:12.493204+00
+509	95	pop:individual:5571	95	58	2012-10-29 17:28:13.590068+00
+510	84	pop:individual:5309	84	47	2012-10-29 17:28:13.858546+00
+511	51	pop:individual:5177	51	19	2012-10-29 17:28:16.261012+00
+512	51	pop:individual:5244	51	19	2012-10-29 17:28:19.230597+00
+513	51	pop:individual:5460	51	19	2012-10-29 17:28:21.717986+00
+514	92	pop:individual:5530	92	55	2012-10-29 17:28:22.142454+00
+515	84	pop:individual:5130	84	47	2012-10-29 17:28:24.744073+00
+516	88	pop:individual:3076	88	51	2012-10-29 17:28:31.115334+00
+517	83	pop:individual:5495	83	46	2012-10-29 17:28:40.879452+00
+518	81	pop:individual:5130	81	44	2012-10-29 17:28:41.72044+00
+519	88	pop:individual:5250	88	51	2012-10-29 17:28:45.756826+00
+520	83	pop:individual:5555	83	46	2012-10-29 17:28:46.847351+00
+521	84	pop:individual:5587	84	47	2012-10-29 17:28:47.535767+00
+522	79	pop:individual:5644	79	42	2012-10-29 17:28:54.598913+00
+523	88	pop:individual:5241	88	51	2012-10-29 17:28:56.281504+00
+524	91	pop:individual:5357	91	54	2012-10-29 17:28:56.371706+00
+525	83	pop:individual:5467	83	46	2012-10-29 17:28:57.362682+00
+526	97	pop:individual:5209	97	60	2012-10-29 17:29:01.790632+00
+527	91	pop:individual:3743	91	54	2012-10-29 17:29:03.667281+00
+528	83	pop:individual:5690	83	46	2012-10-29 17:29:06.632954+00
+529	84	pop:individual:5653	84	47	2012-10-29 17:29:09.005847+00
+530	88	pop:individual:5715	88	51	2012-10-29 17:29:18.607058+00
+531	91	pop:individual:5783	91	54	2012-10-29 17:29:18.976913+00
+532	96	pop:individual:5605	96	59	2012-10-29 17:29:23.555259+00
+533	88	pop:individual:5724	88	51	2012-10-29 17:29:27.432351+00
+534	96	pop:individual:5555	96	59	2012-10-29 17:29:31.298924+00
+535	97	pop:individual:5106	97	60	2012-10-29 17:29:31.924157+00
+536	83	pop:individual:5574	83	46	2012-10-29 17:29:41.832285+00
+537	84	pop:individual:5300	84	47	2012-10-29 17:29:43.670014+00
+538	88	pop:individual:5616	88	51	2012-10-29 17:29:46.198583+00
+539	51	pop:individual:5385	51	19	2012-10-29 17:29:58.117068+00
+540	96	pop:individual:5243	96	59	2012-10-29 17:30:07.26291+00
+541	86	pop:individual:5026	86	49	2012-10-29 17:30:09.397574+00
+542	84	pop:individual:5784	84	47	2012-10-29 17:30:14.018479+00
+543	88	pop:individual:5737	88	51	2012-10-29 17:30:14.841011+00
+544	92	pop:individual:5847	92	55	2012-10-29 17:30:18.458363+00
+545	88	pop:individual:5414	88	51	2012-10-29 17:30:19.717811+00
+546	82	pop:individual:5464	82	45	2012-10-29 17:30:22.899443+00
+547	51	pop:individual:5476	51	19	2012-10-29 17:30:26.07414+00
+548	88	pop:individual:5371	88	51	2012-10-29 17:30:26.626403+00
+549	82	pop:individual:1855	82	45	2012-10-29 17:30:28.588549+00
+550	83	pop:individual:5847	83	46	2012-10-29 17:30:29.068956+00
+551	89	pop:individual:5509	89	52	2012-10-29 17:30:29.61075+00
+552	96	pop:individual:5616	96	59	2012-10-29 17:30:30.904277+00
+553	89	pop:individual:5868	89	52	2012-10-29 17:30:32.013607+00
+554	87	pop:individual:4733	87	50	2012-10-29 17:30:32.170939+00
+555	88	pop:individual:3717	88	51	2012-10-29 17:30:33.382264+00
+556	82	pop:individual:5891	82	45	2012-10-29 17:30:34.353391+00
+557	92	pop:individual:5887	92	55	2012-10-29 17:30:35.349436+00
+558	51	pop:individual:5254	51	19	2012-10-29 17:30:39.382724+00
+559	96	pop:individual:5826	96	59	2012-10-29 17:30:40.521898+00
+560	89	pop:individual:5503	89	52	2012-10-29 17:30:45.066598+00
+561	51	pop:individual:5584	51	19	2012-10-29 17:30:50.295387+00
+562	51	pop:individual:5296	51	19	2012-10-29 17:30:51.710568+00
+563	51	pop:individual:5269	51	19	2012-10-29 17:30:54.269479+00
+564	95	pop:individual:5939	95	58	2012-10-29 17:31:18.966411+00
+565	88	pop:individual:5737	88	51	2012-10-29 17:31:28.236029+00
+566	96	pop:individual:5826	96	59	2012-10-29 17:31:38.222884+00
+567	76	pop:individual:5664	76	39	2012-10-29 17:31:43.997943+00
+568	90	pop:individual:5263	90	53	2012-10-29 17:31:44.755626+00
+569	88	pop:individual:5859	88	51	2012-10-29 17:31:47.344442+00
+570	88	pop:individual:5859	88	51	2012-10-29 17:31:59.729128+00
+571	86	pop:individual:5214	86	49	2012-10-29 17:32:02.68867+00
+572	83	pop:individual:5716	83	46	2012-10-29 17:32:03.002376+00
+573	86	pop:individual:5921	86	49	2012-10-29 17:32:10.482445+00
+574	88	pop:individual:5737	88	51	2012-10-29 17:32:14.032677+00
+575	86	pop:individual:5577	86	49	2012-10-29 17:32:14.573391+00
+576	88	pop:individual:5371	88	51	2012-10-29 17:32:17.003246+00
+577	88	pop:individual:3055	88	51	2012-10-29 17:32:20.966193+00
+578	86	pop:individual:5991	86	49	2012-10-29 17:32:22.789479+00
+579	83	pop:individual:6011	83	46	2012-10-29 17:32:30.615873+00
+580	88	pop:individual:6084	88	51	2012-10-29 17:32:38.265089+00
+581	88	pop:individual:4620	88	51	2012-10-29 17:32:41.024725+00
+582	96	pop:individual:6049	96	59	2012-10-29 17:32:41.872301+00
+583	83	pop:individual:5716	83	46	2012-10-29 17:32:42.540467+00
+584	92	pop:individual:5847	92	55	2012-10-29 17:32:43.020376+00
+585	83	pop:individual:5928	83	46	2012-10-29 17:32:47.985534+00
+586	88	pop:individual:6069	88	51	2012-10-29 17:32:48.961901+00
+587	88	pop:individual:5591	88	51	2012-10-29 17:32:52.38397+00
+588	96	pop:individual:5945	96	59	2012-10-29 17:32:54.381865+00
+589	83	pop:individual:6147	83	46	2012-10-29 17:32:54.691573+00
+590	84	pop:individual:6028	84	47	2012-10-29 17:32:55.057696+00
+591	78	pop:individual:5706	78	41	2012-10-29 17:32:58.344932+00
+592	88	pop:individual:6133	88	51	2012-10-29 17:32:59.111783+00
+593	78	pop:individual:5648	78	41	2012-10-29 17:33:00.51237+00
+594	78	pop:individual:6144	78	41	2012-10-29 17:33:02.886387+00
+595	88	pop:individual:6084	88	51	2012-10-29 17:33:03.323688+00
+596	83	pop:individual:5574	83	46	2012-10-29 17:33:06.941802+00
+597	78	pop:individual:5648	78	41	2012-10-29 17:33:09.061342+00
+598	89	pop:individual:5638	89	52	2012-10-29 17:33:17.50071+00
+599	87	pop:individual:5390	87	50	2012-10-29 17:33:21.846926+00
+600	88	pop:individual:5591	88	51	2012-10-29 17:33:26.432482+00
+601	84	pop:individual:5702	84	47	2012-10-29 17:33:27.209563+00
+602	88	pop:individual:5591	88	51	2012-10-29 17:33:30.171542+00
+603	89	pop:individual:5868	89	52	2012-10-29 17:33:31.461142+00
+604	87	pop:individual:5120	87	50	2012-10-29 17:33:37.616116+00
+605	82	pop:individual:6032	82	45	2012-10-29 17:33:38.890682+00
+606	84	pop:individual:6188	84	47	2012-10-29 17:33:41.076738+00
+607	88	pop:individual:6182	88	51	2012-10-29 17:33:50.676083+00
+608	88	pop:individual:5555	88	51	2012-10-29 17:33:56.258126+00
+609	96	pop:individual:5168	96	59	2012-10-29 17:33:57.824089+00
+610	89	pop:individual:5277	89	52	2012-10-29 17:34:07.818322+00
+611	88	pop:individual:6225	88	51	2012-10-29 17:34:10.994477+00
+612	88	pop:individual:1855	88	51	2012-10-29 17:34:13.047504+00
+613	82	pop:individual:6196	82	45	2012-10-29 17:34:16.801701+00
+614	82	pop:individual:6107	82	45	2012-10-29 17:34:19.073066+00
+615	96	pop:individual:6147	96	59	2012-10-29 17:34:29.01079+00
+616	88	pop:individual:6262	88	51	2012-10-29 17:34:42.833474+00
+617	88	pop:individual:6042	88	51	2012-10-29 17:34:58.699279+00
+618	88	pop:individual:6556	88	51	2012-10-29 17:35:02.905502+00
+619	88	pop:individual:6580	88	51	2012-10-29 17:35:11.532444+00
+620	88	pop:individual:6286	88	51	2012-10-29 17:35:14.637477+00
+621	88	pop:individual:6565	88	51	2012-10-29 17:35:28.575271+00
+622	83	pop:individual:6573	83	46	2012-10-29 17:35:30.075112+00
+623	88	pop:individual:6568	88	51	2012-10-29 17:35:31.47376+00
+624	88	pop:individual:5877	88	51	2012-10-29 17:35:41.216731+00
+625	88	pop:individual:6430	88	51	2012-10-29 17:35:43.764888+00
+626	88	pop:individual:6414	88	51	2012-10-29 17:36:00.297851+00
+627	88	pop:individual:6635	88	51	2012-10-29 17:36:06.099385+00
+628	88	pop:individual:6571	88	51	2012-10-29 17:36:26.532904+00
+629	88	pop:individual:6222	88	51	2012-10-29 17:36:30.567205+00
+630	88	pop:individual:6577	88	51	2012-10-29 17:36:34.21652+00
+631	77	pop:individual:1917	77	40	2012-10-29 17:36:36.789913+00
+632	88	pop:individual:6625	88	51	2012-10-29 17:36:40.74344+00
+633	77	pop:individual:3371	77	40	2012-10-29 17:36:42.402264+00
+634	88	pop:individual:6144	88	51	2012-10-29 17:36:47.944676+00
+635	88	pop:individual:5266	88	51	2012-10-29 17:37:13.53896+00
+636	88	pop:individual:6525	88	51	2012-10-29 17:38:18.692226+00
+637	88	pop:individual:4529	88	51	2012-10-29 17:38:21.798731+00
+638	88	pop:individual:5971	88	51	2012-10-29 17:38:25.195559+00
+639	88	pop:individual:6235	88	51	2012-10-29 17:38:30.05261+00
+640	88	pop:individual:4438	88	51	2012-10-29 17:38:32.846959+00
+641	88	pop:individual:5979	88	51	2012-10-29 17:38:45.973356+00
+642	88	pop:individual:5879	88	51	2012-10-29 17:38:50.348181+00
+643	88	pop:individual:6519	88	51	2012-10-29 17:38:51.956807+00
+644	88	pop:individual:6629	88	51	2012-10-29 17:38:54.947167+00
+645	88	pop:individual:6341	88	51	2012-10-29 17:39:05.252698+00
+646	88	pop:individual:6229	88	51	2012-10-29 17:39:09.704709+00
+647	88	pop:individual:5805	88	51	2012-10-29 17:39:12.041813+00
+648	88	pop:individual:5805	88	51	2012-10-29 17:39:15.634645+00
+649	88	pop:individual:6665	88	51	2012-10-29 17:39:27.394049+00
+650	88	pop:individual:5762	88	51	2012-10-29 17:39:30.802521+00
+651	88	pop:individual:6342	88	51	2012-10-29 17:39:34.930949+00
+652	88	pop:individual:6636	88	51	2012-10-29 17:39:41.392976+00
+653	88	pop:individual:6099	88	51	2012-10-29 17:39:45.011849+00
+654	88	pop:individual:4620	88	51	2012-10-29 17:39:47.907432+00
+655	88	pop:individual:6586	88	51	2012-10-29 17:39:50.940216+00
+656	88	pop:individual:5652	88	51	2012-10-29 17:39:57.854016+00
+657	88	pop:individual:5994	88	51	2012-10-29 17:40:04.912998+00
+658	88	pop:individual:5012	88	51	2012-10-29 17:40:07.681333+00
+659	88	pop:individual:5995	88	51	2012-10-29 17:40:10.078802+00
+660	88	pop:individual:6680	88	51	2012-10-29 17:40:13.688522+00
+661	88	pop:individual:6675	88	51	2012-10-29 17:40:18.617634+00
+662	88	pop:individual:1917	88	51	2012-10-29 17:40:24.648178+00
+663	88	pop:individual:6537	88	51	2012-10-29 17:40:28.901615+00
+664	88	pop:individual:6659	88	51	2012-10-29 17:40:34.00691+00
+665	99	pop:individual:6582	99	62	2012-10-29 17:40:43.566118+00
+666	88	pop:individual:6637	88	51	2012-10-29 17:40:47.064451+00
+667	88	pop:individual:6527	88	51	2012-10-29 17:40:49.59328+00
+668	88	pop:individual:4620	88	51	2012-10-29 17:40:52.40741+00
+669	88	pop:individual:6601	88	51	2012-10-29 17:40:55.467033+00
+670	88	pop:individual:5990	88	51	2012-10-29 17:40:57.943056+00
+671	88	pop:individual:6651	88	51	2012-10-29 17:41:04.460213+00
+672	88	pop:individual:6064	88	51	2012-10-29 17:41:11.372035+00
+673	88	pop:individual:5935	88	51	2012-10-29 17:41:16.024787+00
+674	88	pop:individual:1917	88	51	2012-10-29 17:41:18.550645+00
+675	88	pop:individual:6621	88	51	2012-10-29 17:41:24.576878+00
+676	88	pop:individual:5838	88	51	2012-10-29 17:41:28.064858+00
+677	88	pop:individual:6644	88	51	2012-10-29 17:41:33.605+00
+678	88	pop:individual:6691	88	51	2012-10-29 17:41:41.538763+00
+679	88	pop:individual:6375	88	51	2012-10-29 17:41:45.336791+00
+680	88	pop:individual:6274	88	51	2012-10-29 17:41:48.303555+00
+681	96	pop:individual:4620	96	59	2012-10-29 17:41:48.839764+00
+682	88	pop:individual:5879	88	51	2012-10-29 17:41:51.765453+00
+683	88	pop:individual:6638	88	51	2012-10-29 17:42:11.44227+00
+684	88	pop:individual:6497	88	51	2012-10-29 17:42:16.42178+00
+685	99	pop:individual:6679	99	62	2012-10-29 17:42:18.886477+00
+686	88	pop:individual:6670	88	51	2012-10-29 17:42:20.927313+00
+687	88	pop:individual:6014	88	51	2012-10-29 17:42:29.88738+00
+688	88	pop:individual:4705	88	51	2012-10-29 17:42:40.104317+00
+689	99	pop:individual:5902	99	62	2012-10-29 17:42:40.456911+00
+690	88	pop:individual:5876	88	51	2012-10-29 17:42:45.136843+00
+691	88	pop:individual:6120	88	51	2012-10-29 17:42:48.86048+00
+692	99	pop:individual:5852	99	62	2012-10-29 17:42:58.184997+00
+693	88	pop:individual:5933	88	51	2012-10-29 17:42:58.759221+00
+694	88	pop:individual:5804	88	51	2012-10-29 17:43:01.730361+00
+695	88	pop:individual:5562	88	51	2012-10-29 17:43:05.750821+00
+696	88	pop:individual:6673	88	51	2012-10-29 17:43:10.99134+00
+697	88	pop:individual:4529	88	51	2012-10-29 17:43:15.742495+00
+698	88	pop:individual:6447	88	51	2012-10-29 17:43:22.130168+00
+699	88	pop:individual:6403	88	51	2012-10-29 17:43:26.561658+00
+700	88	pop:individual:6006	88	51	2012-10-29 17:43:31.66683+00
+701	88	pop:individual:6114	88	51	2012-10-29 17:43:34.543675+00
+702	88	pop:individual:3371	88	51	2012-10-29 17:43:43.820784+00
+703	96	pop:individual:6703	96	59	2012-10-29 17:43:47.353736+00
+704	88	pop:individual:6460	88	51	2012-10-29 17:43:49.641982+00
+705	99	pop:individual:6390	99	62	2012-10-29 17:43:55.774365+00
+706	88	pop:individual:6657	88	51	2012-10-29 17:43:55.826673+00
+707	88	pop:individual:5591	88	51	2012-10-29 17:43:59.685998+00
+708	96	pop:individual:5950	96	59	2012-10-29 17:44:07.272437+00
+709	88	pop:individual:6490	88	51	2012-10-29 17:44:13.616153+00
+710	88	pop:individual:6537	88	51	2012-10-29 17:44:18.533048+00
+711	88	pop:individual:5464	88	51	2012-10-29 17:44:21.708224+00
+712	88	pop:individual:6017	88	51	2012-10-29 17:44:25.243925+00
+713	88	pop:individual:5266	88	51	2012-10-29 17:44:33.518794+00
+714	88	pop:individual:6668	88	51	2012-10-29 17:44:36.374435+00
+715	88	pop:individual:6516	88	51	2012-10-29 17:44:41.259281+00
+716	88	pop:individual:6720	88	51	2012-10-29 17:44:45.643318+00
+717	88	pop:individual:5797	88	51	2012-10-29 17:44:52.148199+00
+718	88	pop:individual:6508	88	51	2012-10-29 17:44:56.315197+00
+719	88	pop:individual:6113	88	51	2012-10-29 17:45:10.355388+00
+720	88	pop:individual:6531	88	51	2012-10-29 17:45:28.061391+00
+721	88	pop:individual:6531	88	51	2012-10-29 17:45:31.107636+00
+722	88	pop:individual:6671	88	51	2012-10-29 17:45:39.398022+00
+723	88	pop:individual:6663	88	51	2012-10-29 17:45:50.214048+00
+724	88	pop:individual:6497	88	51	2012-10-29 17:45:54.580194+00
+725	88	pop:individual:6670	88	51	2012-10-29 17:46:41.313503+00
+726	37	pop:individual:3743	37	4	2012-10-29 18:00:43.529651+00
+727	37	pop:individual:764	37	4	2012-10-29 18:03:33.451505+00
+728	101	pop:individual:6617	101	63	2012-10-29 19:24:30.660409+00
+729	101	pop:individual:6791	101	63	2012-10-29 19:24:40.01519+00
+730	101	pop:individual:5870	101	63	2012-10-29 19:24:51.973275+00
+731	101	pop:individual:5619	101	63	2012-10-29 19:24:55.973377+00
+732	101	pop:individual:6685	101	63	2012-10-29 19:25:00.441249+00
+733	101	pop:individual:6113	101	63	2012-10-29 19:25:29.124077+00
+734	101	pop:individual:6820	101	63	2012-10-29 19:25:39.219552+00
+735	101	pop:individual:6694	101	63	2012-10-29 19:25:45.859829+00
+736	101	pop:individual:5523	101	63	2012-10-29 19:27:24.11444+00
+737	96	pop:individual:6750	96	59	2012-10-29 21:36:37.153997+00
+738	96	pop:individual:6536	96	59	2012-10-29 21:37:32.75749+00
+739	96	pop:individual:5226	96	59	2012-10-29 21:38:50.612381+00
+740	96	pop:individual:6895	96	59	2012-10-29 21:39:02.117382+00
+741	96	pop:individual:6818	96	59	2012-10-29 21:39:55.962364+00
+742	96	pop:individual:6866	96	59	2012-10-29 21:40:09.653544+00
+743	96	pop:individual:6852	96	59	2012-10-29 21:40:49.354013+00
+744	96	pop:individual:6733	96	59	2012-10-29 21:43:03.011928+00
+745	96	pop:individual:5802	96	59	2012-10-29 21:43:45.899333+00
+746	102	pop:individual:6614	102	64	2012-10-30 23:04:26.462874+00
+747	102	pop:individual:6883	102	64	2012-10-30 23:04:53.00083+00
+748	102	pop:individual:5880	102	64	2012-10-30 23:05:20.786802+00
+749	102	pop:individual:6915	102	64	2012-10-30 23:05:38.736953+00
+750	102	pop:individual:7197	102	64	2012-10-30 23:07:36.643647+00
+751	103	pop:individual:7612	103	65	2012-11-01 01:29:53.83179+00
+752	61	pop:individual:7428	61	28	2012-11-01 21:30:55.959728+00
+753	61	pop:individual:7848	61	28	2012-11-01 21:31:24.155692+00
+754	62	pop:individual:7798	62	29	2012-11-02 01:26:28.177128+00
+755	62	pop:individual:7532	62	29	2012-11-02 01:26:46.851099+00
+756	62	pop:individual:7508	62	29	2012-11-02 01:27:37.757496+00
+757	5	pop:individual:7961	5	9	2012-11-02 04:05:32.608193+00
+758	5	pop:individual:7821	5	9	2012-11-02 04:08:27.714844+00
+759	5	pop:individual:7979	5	9	2012-11-02 04:09:36.840939+00
+760	5	pop:individual:8068	5	9	2012-11-02 04:11:50.430724+00
+761	3	pop:individual:8010	3	9	2012-11-02 04:13:47.473786+00
+762	108	pop:individual:7603	108	69	2012-11-02 04:22:41.72415+00
+763	109	pop:individual:8065	109	69	2012-11-02 04:26:42.664766+00
+764	109	pop:individual:8038	109	69	2012-11-02 04:27:02.140956+00
+765	61	pop:individual:6852	61	28	2012-11-04 04:32:38.461431+00
+766	112	pop:individual:7673	112	72	2012-11-06 19:02:17.189764+00
+767	112	pop:individual:7664	112	72	2012-11-06 19:04:39.830626+00
+768	41	pop:individual:7444	41	12	2012-11-07 01:42:20.250554+00
+769	42	pop:individual:7978	42	12	2012-11-09 02:12:53.392476+00
+770	37	pop:individual:8293	37	4	2012-11-13 19:15:08.134546+00
+771	37	pop:individual:8686	37	4	2012-11-13 19:17:53.508261+00
+772	37	pop:individual:8615	37	4	2012-11-13 19:18:40.055702+00
+773	37	pop:individual:8695	37	4	2012-11-13 19:20:35.171709+00
+774	41	pop:individual:8653	41	12	2012-11-14 21:29:39.79117+00
+775	61	pop:individual:9688	61	28	2012-11-19 20:31:10.178758+00
+776	61	pop:individual:9730	61	28	2012-11-19 20:31:51.690306+00
+777	115	pop:individual:8445	115	74	2012-11-19 20:55:38.953389+00
+778	115	pop:individual:9353	115	74	2012-11-19 20:55:48.240623+00
+779	115	pop:individual:9730	115	74	2012-11-19 20:56:12.875855+00
+780	115	pop:individual:8269	115	74	2012-11-19 20:56:19.303917+00
+781	115	pop:individual:8290	115	74	2012-11-19 20:56:29.367922+00
+782	115	pop:individual:9759	115	74	2012-11-19 20:56:32.228853+00
+783	117	pop:individual:9953	117	76	2012-11-20 20:12:28.136021+00
+784	117	pop:individual:9953	117	76	2012-11-20 20:13:10.979213+00
+785	42	pop:individual:139	42	12	2012-11-21 02:22:02.88705+00
+786	42	pop:individual:10020	42	12	2012-11-21 21:08:14.631522+00
+787	113	pop:individual:10020	113	12	2012-11-21 21:33:26.2469+00
+788	41	pop:individual:10020	41	12	2012-11-21 21:33:44.067995+00
+789	65	pop:individual:10158	65	32	2012-11-23 01:16:58.308402+00
+790	65	pop:individual:9977	65	32	2012-11-23 01:17:42.196318+00
+791	65	pop:individual:9620	65	32	2012-11-23 01:18:15.139006+00
+792	65	pop:individual:8621	65	32	2012-11-23 01:19:23.106813+00
+793	65	pop:individual:8422	65	32	2012-11-23 01:21:20.110737+00
+794	65	pop:individual:6815	65	32	2012-11-23 01:21:34.761581+00
+795	65	pop:individual:9894	65	32	2012-11-23 01:22:34.050743+00
+796	65	pop:individual:6815	65	32	2012-11-23 01:23:40.407806+00
+797	41	pop:individual:9610	41	12	2012-11-28 01:40:50.286424+00
+798	41	pop:individual:8953	41	12	2012-11-28 01:41:07.104158+00
+799	41	pop:individual:8638	41	12	2012-11-28 01:41:29.136445+00
+800	41	pop:individual:9994	41	12	2012-11-28 01:41:44.198626+00
+801	41	pop:individual:9220	41	12	2012-11-28 01:41:53.771557+00
+802	41	pop:individual:9035	41	12	2012-11-28 01:42:10.878557+00
+803	41	pop:individual:9035	41	12	2012-11-28 01:42:19.46178+00
+804	41	pop:individual:10016	41	12	2012-11-28 01:42:27.934224+00
+805	41	pop:individual:9035	41	12	2012-11-28 01:43:27.913834+00
+806	118	pop:individual:9753	118	12	2012-11-28 01:47:43.113268+00
+807	118	pop:individual:139	118	12	2012-11-28 02:06:29.752752+00
+808	118	pop:individual:139	118	12	2012-11-28 02:06:53.342497+00
+809	119	pop:individual:139	119	12	2012-11-28 02:07:22.626593+00
+810	10	pop:individual:10302	10	9	2012-11-28 16:55:52.783568+00
+811	41	pop:individual:764	41	12	2012-11-29 00:45:19.894239+00
+812	41	pop:individual:39	41	12	2012-11-29 00:45:33.291763+00
+813	121	pop:individual:10010	121	77	2012-11-30 01:51:58.134128+00
+814	123	pop:individual:10281	123	77	2012-11-30 01:53:21.305619+00
+815	124	pop:individual:10063	124	77	2012-11-30 01:53:37.682742+00
+816	123	pop:individual:10138	123	77	2012-11-30 01:54:53.50112+00
+817	123	pop:individual:9161	123	77	2012-11-30 01:54:57.763263+00
+818	123	pop:individual:10338	123	77	2012-11-30 02:00:42.847857+00
+819	123	pop:individual:10012	123	77	2012-11-30 02:00:46.654744+00
+820	123	pop:individual:10208	123	77	2012-11-30 02:00:53.016346+00
+821	123	pop:individual:9610	123	77	2012-11-30 02:04:39.433733+00
+822	125	pop:individual:9923	125	78	2012-11-30 02:45:00.493213+00
+823	125	pop:individual:10336	125	78	2012-11-30 02:45:11.937768+00
+824	125	pop:individual:10147	125	78	2012-11-30 02:45:20.227816+00
+825	125	pop:individual:10355	125	78	2012-11-30 02:45:26.063121+00
+826	125	pop:individual:9977	125	78	2012-11-30 02:45:46.449778+00
+827	125	pop:individual:9956	125	78	2012-11-30 02:45:58.761009+00
+828	126	pop:individual:9922	126	78	2012-11-30 02:46:30.273363+00
+829	126	pop:individual:9881	126	78	2012-11-30 02:46:56.706606+00
+830	126	pop:individual:870	126	78	2012-11-30 02:47:49.922583+00
+831	126	pop:individual:10162	126	78	2012-11-30 02:48:58.914078+00
+832	57	pop:individual:10238	57	24	2012-12-01 00:17:39.515751+00
+833	128	pop:individual:10238	128	24	2012-12-01 00:22:54.10997+00
+834	127	pop:individual:9662	127	79	2012-12-01 00:24:28.47306+00
+835	129	pop:individual:9737	129	79	2012-12-01 00:24:59.43995+00
+836	129	pop:individual:764	129	79	2012-12-01 00:27:14.763844+00
+837	128	pop:individual:764	128	24	2012-12-01 00:32:26.506453+00
+838	130	pop:individual:10001	130	80	2012-12-01 00:42:20.329007+00
+839	75	pop:individual:9922	75	38	2012-12-02 03:13:23.165892+00
+840	132	pop:individual:9923	132	80	2012-12-03 04:09:48.372037+00
+841	132	pop:individual:764	132	80	2012-12-03 04:16:57.888958+00
+842	37	pop:individual:10243	37	4	2013-01-10 21:16:48.788414+00
+843	40	pop:individual:10078	40	4	2013-01-10 21:35:30.833828+00
+844	133	pop:individual:24	133	82	2013-01-16 04:42:24.577475+00
+845	133	pop:individual:10001	133	82	2013-01-16 04:43:24.409174+00
+846	40	pop:individual:10020	40	4	2013-01-22 23:05:36.354467+00
+\.
+
+
+--
+-- Data for Name: shapes_facebooksession; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY shapes_facebooksession (id, access_token, expires, user_id, uid) FROM stdin;
+14	AAAHKBJhx2IoBAL3IoKKZCqs1UW33bYNaw9wGZBZBtIGdZCyLUBZBn5j27UtElaCn4kX9ZAEPabxDCVN4nTsvAZCa5ZBAUPljuGZA7UXlOPJq8NQZDZD	5155053	4	807826461
+79	AAAHKBJhx2IoBAN8cl8EVMqMD8ZAqqNKjhAIy5HMGs1FEkiRnPVKuLAOwScleQjpZAWHO5uwMpKeHZCVjZAxUfBsy29p5GxbhH6bPYgacrQZDZD	5183999	69	100000611731086
+28	AAAHKBJhx2IoBAKpT43AJM0O6yHujoJ0nZAiI5MgPtZCsOK7ZBZCZB93BBqLScuNK63w0vdk4jZC7XxvQ5gyg8oLGde5yfiXkTGq7BpKklV1wZDZD	5183999	25	741832251
+81	AAAHKBJhx2IoBAMntZAAaiBRFUr5fDTZAlFlsXSYoqfNvWS5hlw2GCFABZCSeWTNufOBFzusprLBFCsTV9ZAzkWIz0cWSOG7ZB5G1u2LYa4AZDZD	5184000	71	541124275
+72	AAAHKBJhx2IoBAK7DW93XljgzVXLhmIVyQLLiOQ7cvxevvkkZBGJhnl3FXcjy1gfq1q6YpJk8jVjHE1jJ3tucBrFBnbdEHlOHXIm20BgZDZD	5184000	63	1058096054
+87	AAAHKBJhx2IoBAECUHjtx4iNo5ZBUc0VKh5ZClZCIwFEyUtw978dGBHbwYkbM4eZCArFnKNoSoPTpS5o57kToIN4OCifmiH7EgB8nlR00SAZDZD	5183999	75	100000733524272
+30	AAAHKBJhx2IoBAIqphuligJTRSKKLODEEmPqtD4VkJg5RPgaPsTV2jAdlRuTgS8jJpRqQ1XbhKM2AmzfCbyYENAn2BhSA4XUt4ZCZCZBxQZDZD	5183999	27	1268420174
+42	AAAHKBJhx2IoBAOBEVHnbYGWgGIasxVb7ulGVvbrfo2DC7L88YYqvZB4Po5GPvBE8wqWcSHKc5tQ7y4aGS2xzcdyr8fSZA74wb86couogZDZD	5179804	6	1213334604
+31	AAAHKBJhx2IoBAPWOEC88KZCocIpBZA5Vdt6jSbVMD6wxijeMgLoXIdTUobzZCsX8j5a39gysgju3pLNCDEZBO9ETwjW7oRFPq8B7MNtDGQZDZD	5183334	26	725192292
+88	AAAHKBJhx2IoBACBGZAR8YZCidFYdTRiiPgZCscKLqiEJe4MQr1WWhFC7b1a99DFvfKOtSIXP4dxoq8w8bQIyEqXpwFGtXBTrYxZAraQWrwZDZD	5184000	33	100000473754349
+5	AAAHKBJhx2IoBALFjOP7g54Nvjsa780nOuDTgVXjbm6OFT1hPP9XhMlHzN2WhDZC8dLnLZAmC23wmAzKiso4BnapFxSag3WjmOFU6k8dAZDZD	5183999	8	657421674
+73	AAAHKBJhx2IoBAOUADRzJRaFc3QSfImZC9IHEiHYzQSR51QGnVDhkcZCTtqZCeCoYZBe8NlUrzvQ3oTCnB64O8LkESb26vFRdFrv2nxO1pUq2U4aAM2yd	6149	\N	\N
+33	AAAHKBJhx2IoBAKeRihVZCPZA8A6HApaHwLdJHzezFv10T5vJR9ock1T9G4IdO9VkTZAozXdWEuVlEwr1WmGiwiDeZBCeXJqlbf7taBTAHwZDZD	5183999	29	1062600581
+34	AAAHKBJhx2IoBAIwhmgJ0GpKxCt4GnVpuVM3igXYQar4e2OadHHNgRnJLfJhH4TpEkSZBPC0VO74QmqDJr0x4ZCPsbKZB6RjpI4dIeKCaQZDZD	5183999	30	100003404659035
+7	AAAHKBJhx2IoBAK8TZBRa8m0bDl5ZAwVtjA5wwKYztIu3sXr2SjjInIDOdszZBZBmyEStmXxX89SLJyglWYkZCnoU2RPj1BcDwBkD7amWrCAZDZD	5184000	10	702161210
+35	AAAHKBJhx2IoBANHvAFy4xfBvdX0dmTzfLt8aZBDe5oHdBRh56Q8IYunF9bRn6MIPwCLqQKmDuztpWllyKPGC7DrUGU9sFQJTUOyM9vgZDZD	5184000	31	1088057677
+16	AAAHKBJhx2IoBAEu4iEijGnwuRIn4fI7FHVdaqDv0kkjkYzPrwbakZB4ypBqkxbOHZCBtY0QwOKYKUGJcYlMaeIH6kzHW1o35Xb0gZBV7AZDZD	5184000	13	768918102
+17	AAAHKBJhx2IoBAJQcOb9YesIbhFgpUu4jo8Rorc7ZAGGjYsrFBEKkZADlLWDPvHCxLC4bcwxXn86MwGT1W8DgbDNzNVoI2pCDjvNtapHQZDZD	5183999	14	684680305
+18	AAAHKBJhx2IoBAATp4On8j4ZAQSFGGo56q5ZAEW7ZA0TctSwmuh1aFsYojWJrgtedE4ct4fGlt5kXGZAJB6Msll88PidcZCMNmjZCYumRv8JwZDZD	5184000	15	662287078
+19	AAAHKBJhx2IoBAKvVYNZCn8cEjWsP6dPslLg2R1f0nQw3XYJHhqxw61m9Px2o7s52szLBGdiDejBb50UgGZAVaVPhliJtorkq7K614IDgZDZD	5183998	16	540143528
+20	AAAHKBJhx2IoBAARmsvx760wiyKGsHa2J3P88gPI1aV3sWZCQtf0CDfzKJZBv1ZCdTwooauVPVJZC7ZA7OKElBjexHJZBpyA8zWRUV9SelsPAZDZD	5183999	17	525712048
+94	AAAHKBJhx2IoBAI4xa87ZAgHEW4Oa6qzpi87EHAKScmjzvivojGkgd7lVkpacAnGAAODUdCdDc6UWAdOMqOJhtxMJIazXdk5eBDqwrtwZDZD	5184000	81	100000958644302
+21	AAAHKBJhx2IoBAGhELpodKprBLvAcrXfJ3UQkHrc6Hmm3FquJ4TnZBnSjaix11GbL6zvTenTHZBcWglZAkR8BZCEg3NsrsMotk1r6k7cbfgZDZD	5183999	18	100004325826269
+13	AAAHKBJhx2IoBABQfwwrpYWOEAkmRPwss97p3tZBW8gGH16rQqPeWoq0lsTHIlUTMf9gZBV0U8GaFlM3mN9RL0K6YrWpDcGoNffheOz8wZDZD	5183999	11	542643721
+22	AAAHKBJhx2IoBACZB8yeruUZAgSHCSANCuFLKlvUPFKZAMwL4ZBkV31aNiQsAaAyHPLZBUKZBPvlZAwLNmgE6TuKIVOQUQR2TUpAvGJjN8XW5wZDZD	5184000	19	100001680695753
+15	AAAHKBJhx2IoBAHJmj7ZBQ05VPPDAxQdfhoNCNpc9Y0dZAJOiFhS6ZCWPmcZCe3v4IVk264yoXL0brGcQAWRr1UWZAuw39Oxml8ZAGB0oaleQZDZD	5184000	12	528450989
+4	AAAHKBJhx2IoBAJm4BQxZABxQwABW0y9YxkDxsU95kGwIEdYk5eShICybttQBMe0ES6P7rn010s78EA42xR97InibozSTg6S8s91iGsQZDZD	5184000	7	100000801014313
+86	AAAHKBJhx2IoBAMBM4QHSbPGWlPRLFgZBLm4ZAUcQU8pNvFXBf77Wosd8wILZABlQZCUDjMgR2TpXsEI7KhPXgk7FfQRh6aMiU4FCLzJHJwZDZD	5184000	74	100001893832357
+2	AAAHKBJhx2IoBAOrL5cpT4XRweBBhT3yZBIjjZAIfhrH7WEu1FdsOsrHZAztVNjMnosK9HSUWaSgfBXH6H33SCcTwcCLG7pLH1bu17bDTAZDZD	5183999	5	1079229024
+6	AAAHKBJhx2IoBABM2SUy1DITw9W4rMZAkN0VZCUZAkpS0riF32167ZAMt9DGyjCkAeouRZCODJdmU5SA73yHIDyjL8MiIPauWzuxorRZCQJvgZDZD	5183999	9	1617171520
+45	AAAHKBJhx2IoBAIcMyNkK7VZCH1ZBAaSrbOEOSZA7S3fxwwr3d0eBZBZB6vF7QZAZB5OV40SracZBS43bqfJ7ILjgR5ZBNsLZCMQDgNseZAc5kO9OAZDZD	5126705	39	100000652921267
+24	AAAHKBJhx2IoBANZCeVS7wmI0fsLTpqmHPC6wIioeMnIwcaxhyWxKgiUtWsnwqMQX5kVF9dQzj767u4VMo6uvVOPKpnlVNc3pwevXZBoAZDZD	5183999	21	722143016
+43	AAAHKBJhx2IoBAELSG33EdIxHxKPJHucTLK0JzArog0uKPqcz0vx51Ks6ZA0ULHMy39ZCtLMVay53vTYagd9unRWOJ36BsLWn4MNbbW6QZDZD	5183999	37	100004453531036
+76	AAAHKBJhx2IoBACJOc8GynH2rdZCRn05Ij08NcARkc7phgiZADSlfMqzWtWFlNXb7obnBuF99R8QVaI4QcaI9yfkVIOUKMPJSC8CoDZBiQZDZD	5183999	66	1210868351
+25	AAAHKBJhx2IoBAFZC17jRfk4OxhCkd9u9NfTCtp8kaAPDWOvMHZARq9ZBUBZCn1JNjHY7dHC9K4ZAqT743zEPQWevvjZA3Ss8PGNL77NlBY7wZDZD	5184000	22	100001769435921
+23	AAAHKBJhx2IoBAJhfWw32ZBN9NhSYTFfP4eRpZB8TlWckfwn2QkSmlfUoWanaUxdS6rQ5CB5ZAa2X8dMLPS0FWFt8TGnMyAxJrwZA4TiQqwZDZD	5184000	20	100000994035392
+26	AAAHKBJhx2IoBAPEbFD5PpFcW1z9j49jOicnC98JDZB0HOEy6kchWkIPTorf7x8fpZBCepQO9ribX0IjWvZBfbpOKkf6d0kEnfhT5ZCjPaAZDZD	5184000	23	100002399826050
+78	AAAHKBJhx2IoBAISSK55eBJe3uqF2xzii4B82SoXC1uW3OykF6B8nNzuEP6FapKzbqroldNCUDGieMpoitZAZBlCMFZCPIFnRrf5E8HNVAZDZD	5183999	68	672276480
+47	AAAHKBJhx2IoBAAuHmsZCSU3jtA17aQSftifPkKobqF72Xa4HTnac2T667IMEyHKZANQyZBp2b15I9RCqhxbZChMWrX4QCBAjimkDqkuRRQZDZD	5183999	41	100004600955434
+40	AAAHKBJhx2IoBAJmKZAwc856zNRZACHvQ32cbAu4IHCg4sWjMMWJy32b1kyVbEZCF1k3iGEm9xpYMPOu0m34gBmVYoXw2trg5XM5Ju01UwZDZD	5183999	35	100002144828792
+41	AAAHKBJhx2IoBAGlwV1uS1X1c0Gl2zhQXZCvePSgtWZAoZCyWQur5ZCVWvX4OUngahG1qE3aDFz5VIZAYH5ote9MxpmJ1lcLOvqY9wB72aRAZDZD	5183999	36	558757857
+49	AAAHKBJhx2IoBAPZArDN5bsWMiF3J3QnLALVJgL98xWhnow6KC3nrfOSLDbSQriuFeNTKLxM4U60eQE2sywsjzIPkmHgXAmcpPZCY6UbwZDZD	5184000	43	803654721
+38	AAAHKBJhx2IoBAI2PxOz5amxO9IikcCeRkHm8B09imRfqogkJ4eOa2kProI3eQc9V7v53SPnqM3XShMW2ajyw4m7HbeVF8Xyk5iB5vQZDZD	5132221	34	894300595
+50	AAAHKBJhx2IoBAA6smcLZATZAOXrYdVqLDsfZANsuIzW4N8NiRoVO3GaOTGxi8mFlFbe7Dxk61C4LhZAKjZAHBJsAHiYUaqenVByYvPxwyGAZDZD	5183999	44	100001781799240
+51	AAAHKBJhx2IoBAEZBGtRb7fVsGeLOIEbduDh0z49lWcfa9xPSTQZALC3WtzHMeu4YN1hBbl3ZADZBEVIEn8ujSdIVYkS7mw2XAmnfDAI8igZDZD	5183998	45	100000421213586
+53	AAAHKBJhx2IoBAOQcgEBjsIYwAEz66KVnTc24VJY6ZAhdNjuIED2M3ZAfTpiehz7pRuG09uAu7UtLozfB4hNBJnjOGcqLNNgxfZBcwuxqQZDZD	5183997	47	100003120978087
+54	AAAHKBJhx2IoBAMhk5UZA2FGsScyotKwwVe3jLEBl9jyZAOopDO4ZCr2QtNGgjjSTBoyPULkv6rCALyUBLWAgHn2VNoVxed5IeAkZBZBb3xAZDZD	5183999	48	100001397641606
+57	AAAHKBJhx2IoBAGDJiZAldAUZAGS7AvEnbYQ8x1FyZCK0nVvVZCrwJaqDWZB0f09UMRgSRWudgh9TUTMZAy286YTwatlzHKijCygrFdP2aP7gZDZD	5183999	51	100001137712263
+66	AAAHKBJhx2IoBAI7IApMcj412KUIN1NIbwmkFVSj69UwIQw4g3ZC2YUDGMlNCvrj7DbN9YhQ1W1IPmx7ikEGgQPFUbtWIJzB8Pzq7TnQZDZD	5169065	59	100001143337271
+80	AAAHKBJhx2IoBADtpPQS5pTvtVmbZAZAN4uN0ju87DLQ2ZA3DxVTZAtDLBsOaHIsQkeawPjXThJKZCMdSvYW2H8vI2EbZCTpgtIHvHW6e9UzAZDZD	5184000	70	730592938
+60	AAAHKBJhx2IoBAAEZCuZBA8q3mt63BtI8BsTI4WKxJfyYNdqVojW8ScMPTICX4NbKXniSt7duQUvlBoDFlVr64ehG5yjsPDT5sZCmvvwFgZDZD	5183999	53	100000836498490
+82	AAAHKBJhx2IoBAIXt0WKf3H1bf1Vvzp8KZBWVWP4Pn7cXlpai0wkOVrVYdFlCGMe434PusDaZAZBRZCUz0xzgs61dwjFus1la8ckwtmlE5AZDZD	5183999	72	583331344
+74	AAAHKBJhx2IoBAKxpHdkTSGKjjnNYclgEG76qrxpZBQ7to3YwEaA0iaGv9ZCkbZCuWCBZCWAxGO6ZAqV6M7sP8M2m3sZB8EJZAQfbvIgG7EKDQZDZD	5184000	64	100000651293308
+89	AAAHKBJhx2IoBAPPI4b9TjZAvdoZCryMJCC91RLQvXKKZApnrcZAq0f0RUhOUjEbAF4AriaZAERwwwzlWyg0UQtteuU0vsrGNPvl0P1XQvIgZDZD	5183999	76	693470399
+77	AAAHKBJhx2IoBAC4C6AT8LDjvvGKZCDAoLxadoqnqPf0Dwitl6srugKZCiU3WFDnZA2bXNnKZAw96ZBTyc6DDIUNIBDu4pZC7Mdnm6elMouZCAZDZD	5184000	67	558961596
+62	AAAHKBJhx2IoBAE1mYjNZBnCmIJ1DD9w9qwaWcrbtIGiyd3UMzjq8IR1irXXKcOVQ4kIhKogkCrACPK2lklpqoPsEiv7mYmLnEF8nEjQZDZD	5183999	55	605288774
+90	AAAHKBJhx2IoBAKDU6ZCboI3EhXAFsRkGGOtbXyfUNsSZCdH6HbEHQIngfO9gNXlWiKEcyjQMQ8zVn5Xm8TjOFTGZBiFPp7Q9KSpOmJXOgZDZD	5182975	77	100000459137393
+91	AAAHKBJhx2IoBACwBlIl13hMdEVO7HWdeUHL5rpWa9lz5ETL9oYL91wpBFKgAU03ZA5Yaa6dyMv8lnswekkLRDBgIB5nuQZAsAjo9V2pAZDZD	5183999	78	100001553235741
+92	AAAHKBJhx2IoBAPen7z3C4LFnotZCuRAMc0Wq7jd2ZAvFrA6oJqWLtEV0uQt6nGHKo37WHvfj4LjksSrCj5UVMrzTa7IiVLObV51Sil1AZDZD	5183970	79	772609754
+63	AAAHKBJhx2IoBABZCkCtexFEycsJPKhQJaZBRZAUWiZBLhBEQZCxyYxRFs1NHyZBQFtsMicrbSqVxq5nqxdYKDoEniFotQbeM6icMXVPvsTywZDZD	5183978	56	100001757226116
+27	AAAHKBJhx2IoBAF4Sktu0oILPc7vceXfwP2ivwnlFGzwTj2wahFVV8eoaVPSwC6PApUHIngNq8pPe2ZCDNYcVSMTipMzXYhH8upvqUlQZDZD	5182623	24	100000352599966
+44	AAAHKBJhx2IoBAEx7Gd5jLnl0ReTfJV2MIXk0WZAWZCwUiCj5MwmmgPlstfXukYYzLBghe1uopfBFyyR7Wd9icHEESGFrdnF7qYJhaH4gZDZD	5184000	38	1075586232
+93	AAAHKBJhx2IoBAAHg9s9vFj8kL6l9o76dIzsTv9t9nbp3ZCukYCdWGM8gNZBBFCcEF6pqADp6ZBBoA6UeF20BpNIh5fqcXNl2F5KhhNPgQZDZD	5183961	80	100002012978140
+65	AAAHKBJhx2IoBAGM84bTPMAIQgfo2FyZBu4ZAW1OegM69LRZBxKRJZA9yUN20xM8zyzC8ETBIvdwPxZAwd3ZCeV2AXFS6NlIRq58Kvdr4mZAVwZDZD	5183999	58	100000719966103
+75	AAAHKBJhx2IoBAEhwnlF4KaOjaoixXhRZC3ZAol8uyX7LzLB9gAgAHE6u1VcnrIYYEcIhZBqggC3Kun0iI8WULYbm5QZCuIbdBP6ptIY6CwZDZD	5184000	65	100000544184106
+85	AAAHKBJhx2IoBABRzVcu6SXBo6axLROiVFVyxbZCwvJHMe10kZC6ZAxLBrNHhGdTMulSNM0SKgLHXZAXyi3Qs3VDiVcrIiTIFdS9XZCkmJlgZDZD	5183999	73	1213530851
+67	AAAHKBJhx2IoBAFU5rDZCZBhoPQ40bXhi4KI0elhRwAfg2ZAtd0oGPIeSO0EYd5dFKGZAeyhTZBkMnFin830oz7RnNjO6hjZBVO9rIgZCwHZAZBAZDZD	5183999	60	100001423971122
+64	AAAHKBJhx2IoBABjo3NA30tq12G2id9Jg3apfj9vjzVAis61z92cC5qfFrV0S48mbfpMBPvDqeDi6YIeeWQaeqhX0R7c5HPgTuGfAgwZDZD	5183936	57	100003128488678
+48	AAAHKBJhx2IoBADWBqGzWZCDUJcVMbaP5CmuIA5Lf35l4qe9oYcZBjKvNIN4ZCie3K2Re2fLmAeJRCexNjQozRN7gBtW9GY8rsSC4vKRAQZDZD	5183770	42	1709522206
+55	AAAHKBJhx2IoBALyfNcV5Xy4dqmN1mOsN7MzewkK6US8MpEKAn4H5HrBhoLGO26LyQJuUPxPGTZBf0cujv8krZBBvNYCNPTV8tyBPYrFgZDZD	5183785	49	100001756886052
+32	AAAHKBJhx2IoBABTbRhg9prxiiVUa2DDycarb3YeLbOpC0GxGItsxMgXKCwOl95cybpW2frLHIZAsaZBkn5V8IMYsJ5ZCVjxf4nQNoxBkAZDZD	5182479	28	1208458624
+59	AAAHKBJhx2IoBAKeYGmep9OcMIxZCZAXoMNpQsYYckLSilZCsnYA8Qs14USnBvaiBUEoQZCNSo6XtqjTJAVVCCn7Vyg2UJi1ZBp0485q8cxgZDZD	5183787	52	100000950735976
+56	AAAHKBJhx2IoBAAuD10b7SnLr74Hdd3hA3Eh49HAKWhOzBwgOTIZCNTbFj1cu0qaSLgvpSGtjU2cIM23gGJfkqkxofH6aXxp681M7ynAZDZD	5183735	50	100001700533669
+58	AAAHKBJhx2IoBAJnfdWley6lkR0ogJj6c24GBuehe1G3Qd0Olwkhvl28ZCikUL7k1l5urFKJ1ODpSJqXyouZAf9IcbymL21jC8JxaHJWwZDZD	5183706	\N	\N
+84	AAAHKBJhx2IoBAOItyZAPxG2cZBXByNh4QnKe0ZAI05x9IgZA5R6cJx731WWG8sHAJQJkSPlcaS9DuMmshQdlwMcPDIB5ZAFZC1898RpTFIZBAZDZD	5171922	32	100000905389995
+69	AAAHKBJhx2IoBAIKiPBAlTzen9m8TKVUJWUx8Oh6PG7jpyZB7ooJ8ZAO1p9MKPM12RLE06cXZCMvOAR9jdemDkD2W5aC7KLivoaioZB6kggZDZD	5183999	61	100000335912385
+68	AAAHKBJhx2IoBAJsSpaEWwFsnx12IJVwuz2919TwkTZBkuwl6YC4ZBIlNekxTKBoBZASZAgxiqfaqwCCEZCKYCn6f0JbVkxjEzCUiIP22HWwZDZD	5183749	\N	\N
+52	AAAHKBJhx2IoBAEPPkxZByxnHd7W7IxL0AmfzdAWC6Ow6ZBSkiqy51aXg5c4rUGTgID39erHhdiPsXU0qaZBsTYOZCvdnwsSKhh2VyiQztAZDZD	5183293	46	100001357284744
+95	AAAHKBJhx2IoBABrIcCrn6su3d9ldsUlRzjFH2jVWZCMvNTcVWYxy5BzexUyLUu0OeWW7qO5BLhkdhmsJ5f3fu9OnuNUZAFWzpFztdBbwZDZD	5183999	82	649362052
+70	AAAHKBJhx2IoBADXJbW6Yk8sxCRMxokK9ywPwBT5bBS40DTAuy0mHCUSwQ5d4dFgkRlOwHFZAlgaPZCwrwcXuVG2OG9LprAloxRZBJl3qgZDZD	5184000	40	100001067904998
+71	AAAHKBJhx2IoBAFxuWBuM8SkE62JKsStiW9ScSfDjZCube7DHxwAYRMX2ipt63ckN9LZAZB9AnLrokbXJ8ZAOLyQA9qIylL6BZBez1uccSLgZDZD	5183902	62	100004632063554
+61	AAAHKBJhx2IoBAGzVXod7PUZB2fwPnshYksjZCI2iOGOritAVrJodhf4X86N9ZBwvRlQ36EebdbWk9rx57zEzAXGale2B3PrppBKTI8nBAZDZD	5183048	54	100001841640444
+\.
+
+
+--
+-- Data for Name: shapes_profile; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY shapes_profile (id, user_id, oauth_token, oauth_secret) FROM stdin;
+1	2	42418733-wNsB0G7pDON3Giju3eTC3shY6eUvxYh31atd1vLE0	x8k7AwE9P12EYbElt3yF0t47BWEiG961vriMrbOVyw
+2	3	574015976-FB4sx0llzLQubIq1B2ee290qVD2Xvc0EP2gXWivG	WZmbZNPYiSBbNwOGkRJ2vpiC3Az5SFdwDataFlgZrc
+\.
+
+
+--
+-- Data for Name: shapes_user_collection; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY shapes_user_collection (id, user_id, collection_id, role, status) FROM stdin;
+1	9	1	O	PU
+2	9	2	O	PU
+3	9	3	O	PU
+4	9	4	O	PU
+5	9	5	O	PU
+6	9	6	O	PU
+10	9	10	O	PU
+12	7	12	O	PU
+15	8	15	O	PU
+26	8	26	O	PU
+34	4	37	O	PU
+35	11	38	O	PU
+36	11	39	O	PU
+37	4	40	O	PU
+38	12	41	O	PU
+39	12	42	O	PU
+40	13	43	O	PU
+41	13	44	O	PU
+42	14	45	O	PU
+43	14	46	O	PU
+44	15	47	O	PU
+45	16	48	O	PU
+46	17	49	O	PU
+47	18	50	O	PU
+48	19	51	O	PU
+49	20	52	O	PU
+50	21	53	O	PU
+51	22	54	O	PU
+52	22	55	O	PU
+53	23	56	O	PU
+54	24	57	O	PU
+55	25	58	O	PU
+56	26	59	O	PU
+57	27	60	O	PU
+58	28	61	O	PU
+59	29	62	O	PU
+60	30	63	O	PU
+61	31	64	O	PU
+62	32	65	O	PU
+63	33	66	O	PU
+64	34	67	O	PU
+65	34	68	O	PU
+66	35	69	O	PU
+67	36	70	O	PU
+68	6	71	O	PU
+69	6	72	O	PU
+70	37	73	O	PU
+71	38	74	O	PU
+72	38	75	O	PU
+73	39	76	O	PU
+74	40	77	O	PU
+75	41	78	O	PU
+76	42	79	O	PU
+77	43	80	O	PU
+78	44	81	O	PU
+79	45	82	O	PU
+80	46	83	O	PU
+81	47	84	O	PU
+82	48	85	O	PU
+83	49	86	O	PU
+84	50	87	O	PU
+85	51	88	O	PU
+86	52	89	O	PU
+87	53	90	O	PU
+88	54	91	O	PU
+89	55	92	O	PU
+90	56	93	O	PU
+91	57	94	O	PU
+92	58	95	O	PU
+93	59	96	O	PU
+94	60	97	O	PU
+95	61	98	O	PU
+96	62	99	O	PU
+97	4	100	O	PU
+98	63	101	O	PU
+99	64	102	O	PU
+100	65	103	O	PU
+101	66	104	O	PU
+102	67	105	O	PU
+103	68	106	O	PU
+104	69	107	O	PU
+105	69	108	O	PU
+106	69	109	O	PU
+107	70	110	O	PU
+108	71	111	O	PU
+109	72	112	O	PU
+110	12	113	O	PU
+111	73	114	O	PU
+112	74	115	O	PU
+113	75	116	O	PU
+114	76	117	O	PU
+115	12	118	O	PU
+116	12	119	O	PU
+117	12	120	O	PU
+118	77	121	O	PU
+119	12	122	O	PU
+120	77	123	O	PU
+121	77	124	O	PU
+122	78	125	O	PU
+123	78	126	O	PU
+124	79	127	O	PU
+125	24	128	O	PU
+126	79	129	O	PU
+127	80	130	O	PU
+128	81	131	O	PU
+129	80	132	O	PU
+130	82	133	O	PU
+\.
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_content_type_app_label_model_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_key UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: django_site_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY django_site
+    ADD CONSTRAINT django_site_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shapes_collection_individual_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY shapes_collection_individual
+    ADD CONSTRAINT shapes_collection_individual_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shapes_collection_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY shapes_collection
+    ADD CONSTRAINT shapes_collection_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shapes_facebooksession_access_token_expires_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY shapes_facebooksession
+    ADD CONSTRAINT shapes_facebooksession_access_token_expires_key UNIQUE (access_token, expires);
+
+
+--
+-- Name: shapes_facebooksession_access_token_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY shapes_facebooksession
+    ADD CONSTRAINT shapes_facebooksession_access_token_key UNIQUE (access_token);
+
+
+--
+-- Name: shapes_facebooksession_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY shapes_facebooksession
+    ADD CONSTRAINT shapes_facebooksession_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shapes_facebooksession_uid_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY shapes_facebooksession
+    ADD CONSTRAINT shapes_facebooksession_uid_key UNIQUE (uid);
+
+
+--
+-- Name: shapes_facebooksession_user_id_uid_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY shapes_facebooksession
+    ADD CONSTRAINT shapes_facebooksession_user_id_uid_key UNIQUE (user_id, uid);
+
+
+--
+-- Name: shapes_profile_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY shapes_profile
+    ADD CONSTRAINT shapes_profile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shapes_profile_user_id_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY shapes_profile
+    ADD CONSTRAINT shapes_profile_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: shapes_user_collection_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY shapes_user_collection
+    ADD CONSTRAINT shapes_user_collection_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_permissions_group_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_group_id ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_permission_id ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_permission_content_type_id ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_group_id ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_user_id ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_user_id ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX django_session_expire_date ON django_session USING btree (expire_date);
+
+
+--
+-- Name: shapes_collection_individual_added_from_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX shapes_collection_individual_added_from_id ON shapes_collection_individual USING btree (added_from_id);
+
+
+--
+-- Name: shapes_collection_individual_collection_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX shapes_collection_individual_collection_id ON shapes_collection_individual USING btree (collection_id);
+
+
+--
+-- Name: shapes_collection_individual_from_user_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX shapes_collection_individual_from_user_id ON shapes_collection_individual USING btree (from_user_id);
+
+
+--
+-- Name: shapes_facebooksession_user_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX shapes_facebooksession_user_id ON shapes_facebooksession USING btree (user_id);
+
+
+--
+-- Name: shapes_user_collection_collection_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX shapes_user_collection_collection_id ON shapes_user_collection USING btree (collection_id);
+
+
+--
+-- Name: shapes_user_collection_user_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX shapes_user_collection_user_id ON shapes_user_collection USING btree (user_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_fkey FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: content_type_id_refs_id_728de91f; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT content_type_id_refs_id_728de91f FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: group_id_refs_id_3cea63fe; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT group_id_refs_id_3cea63fe FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shapes_collection_individual_added_from_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_collection_individual
+    ADD CONSTRAINT shapes_collection_individual_added_from_id_fkey FOREIGN KEY (added_from_id) REFERENCES shapes_collection(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shapes_collection_individual_collection_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_collection_individual
+    ADD CONSTRAINT shapes_collection_individual_collection_id_fkey FOREIGN KEY (collection_id) REFERENCES shapes_collection(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shapes_collection_individual_from_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_collection_individual
+    ADD CONSTRAINT shapes_collection_individual_from_user_id_fkey FOREIGN KEY (from_user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shapes_facebooksession_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_facebooksession
+    ADD CONSTRAINT shapes_facebooksession_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shapes_profile_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_profile
+    ADD CONSTRAINT shapes_profile_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shapes_user_collection_collection_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_user_collection
+    ADD CONSTRAINT shapes_user_collection_collection_id_fkey FOREIGN KEY (collection_id) REFERENCES shapes_collection(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shapes_user_collection_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY shapes_user_collection
+    ADD CONSTRAINT shapes_user_collection_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_7ceef80f; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT user_id_refs_id_7ceef80f FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_dfbab7d; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT user_id_refs_id_dfbab7d FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -269,7 +269,7 @@ $(document).ready(function () {
 
     <div class='four columns slideup'>
         {% if user.is_authenticated %}
-            <p> <img src="http://graph.facebook.com/{{user.email}}/picture?type=small"/> {{ user.first_name }}. <a href="logout">Log out</a>  <span id="fbn" hidden="true">{{ user.username }}</span> </p>
+            <p> <img src="http://graph.facebook.com/{{user.email}}/picture?type=small"/> {{ user.first_name }}. <a href="/logout">Log out</a>  <span id="fbn" hidden="true">{{ user.username }}</span> </p>
         {% else %}
             <p>Welcome, new user. Please <a href="facebook/get_login"> log in </a>with your facebook account. </p>
         {% endif %}

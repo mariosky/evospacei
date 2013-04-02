@@ -28,7 +28,7 @@ from lib.colors import init_pop, evolve_Tournament
 
 
 EVOLUTION_INTERVAL = 2
-REINSERT_THRESHOLD = 50
+REINSERT_THRESHOLD = 20
 popName='pop'
 
 @csrf_exempt
@@ -50,7 +50,7 @@ def evospace(request):
             elif method == "getSample":
                 #Auto ReInsert
                 if population.read_sample_queue_len() >= REINSERT_THRESHOLD:
-                    population.respawn(3)
+                    population.respawn(5)
                 result = population.get_sample(params[0])
                 if result:
                     data = json.dumps({"result" : result,"error": None, "id": id})
@@ -103,12 +103,16 @@ def home(request):
         #REFACTOR GET_FRIENDS
         face =FacebookSession.objects.get(uid=request.user.username)
         friends = face.query("me",connection_type="friends",fields='name,installed')
+
+        if friends:
         # Mejor con FQL
-        app_friends = [f for f in friends['data'] if f.has_key('installed')]
+            app_friends = [f for f in friends['data'] if f.has_key('installed')]
+        else:
+            app_friends = None
     else:
         app_friends = None
 
-    return render_to_response('django_index.html', {'static_server': 'http://evospace.org/prototype/',
+    return render_to_response('django_index.html', {'static_server': 'https://s3.amazonaws.com/evospace/prototype/',
       'api_server':'http://app.evospace.org','friends':app_friends},context_instance=RequestContext(request) )
 
 
@@ -144,10 +148,12 @@ def facebook_get_login(request):
     return HttpResponseRedirect(url)
 
 def facebook_login(request):
-    error = None
 
-    if 'error' in request:
-        raise Exception("Invalid response from Facebook.")
+
+    if 'error' in request.GET:
+        return HttpResponseRedirect('/')
+
+
     code = request.GET['code']
     UID = request.GET['state']
 
@@ -180,8 +186,8 @@ def facebook_login(request):
 
     if 'error_reason' in request.GET:
         error = 'AUTH_DENIED'
-
-    return HttpResponse(profile["id"]+"-@@@@@@@@-"+profile["username"]+"----" +profile["name"]+"  expira en:"+response["expires"][-1]+error)
+    ### TO DO Log Error
+    return HttpResponseRedirect('/')
 
 
 @login_required

@@ -166,14 +166,15 @@
 
             <div class='six columns slideup'>
                 {% if user.is_authenticated %}
-                    <p> <img src="http://graph.facebook.com/{{user.email}}/picture?type=small"/> {{ user.first_name }}. <a href="logout">Log out</a>  <span id="fbn" hidden="true">{{ user.username }}</span> </p>
+                    <p> <img src="http://graph.facebook.com/{{user.email}}/picture?type=small"/> {{ user.first_name }}.  </p>
                 {% else %}
                     <p>Welcome, new user. Please <a href="facebook/get_login"> log in </a>with your facebook account. </p>
                 {% endif %}
             </div>
             <div class='six columns  slideup'>
 
-                <h4 class='strapline'> <a href="/"> <strong> EvoSpace</strong> Prototype App  </a></h4>
+                <h4 class='strapline'> <a href="/"> <strong> Shapes</strong>   </a></h4>
+
             </div>
 
 
